@@ -1,5 +1,12 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 李龙
+  Date: 2021/12/3
+  Time: 12:29
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="model.Site,java.util.*" %>
+<%@ page import="model.*,java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page isELIgnored="false" %>
@@ -295,24 +302,34 @@ with font-awesome or any other icon font library -->
     var map = new AMap.Map("container", {resizeEnable: true});
     var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -5)});
 
-    <c:forEach var="site" items="${siteList}">
-    var marker${site.id} = new AMap.Marker({
-        position: [${site.longitude}, ${site.latitude}],
-        map: map
+    $.ajax({
+        url: 'getStationList',
+        type: 'post',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: {},
+        success: function (data) {
+            // console.log(myData);
+            for (let i = 0, l = data.length; i < l; i++) {
+                var marker = new AMap.Marker({
+                    position: [data[i].longitude, data[i].latitude],
+                    map: map
+                });
+                marker.content = '<h3>' + data[i].stationName + '</h3>';
+                marker.content += '<div>经度：' + data[i].longitude +'</div>';
+                marker.content += '<div>纬度：' + data[i].latitude +'</div>';
+                marker.content += '<div><button class="btn btn-success btn-xs">历史轨迹</button>';
+                marker.content += '&nbsp;<button class="btn btn-warning btn-xs"><a href="stationData-query?detection_id="'+ data[i].stationId + 'target="_blank" />实时跟踪&nbsp;</button>';
+                marker.content += '&nbsp;<button class="btn btn-danger btn-xs">设置</button></div>';
+                // console.log('success');
+                marker.on('mouseover', infoOpen);
+                //注释后打开地图时默认关闭信息窗体
+                //marker.emit('mouseover', {target: marker});
+                marker.on('mouseout', infoClose);
+                marker.on('click', newMAp);
+            }
+        }
     });
-    marker${site.id}.content = '<h3>' + "检测站:${site.name}" + '</h3>';
-    marker${site.id}.content += '<div>经度：' + ${site.longitude} +'</div>';
-    marker${site.id}.content += '<div>纬度：' + ${site.latitude} +'</div>';
-    marker${site.id}.content += '<div><button class="btn btn-success btn-xs">历史轨迹</button>';
-    marker${site.id}.content += '&nbsp;<button class="btn btn-warning btn-xs"><a href="stationData-query?detection_id=${site.id}" target="_blank" />实时跟踪&nbsp;</button>';
-    marker${site.id}.content += '&nbsp;<button class="btn btn-danger btn-xs">设置</button></div>';
-
-    marker${site.id}.on('mouseover', infoOpen);
-    //注释后打开地图时默认关闭信息窗体
-    //marker.emit('mouseover', {target: marker});
-    marker${site.id}.on('mouseout', infoClose);
-    marker${site.id}.on('click', newMAp);
-    </c:forEach>
 
     //鼠标点击事件,设置地图中心点及放大显示级别
     function newMAp(e) {

@@ -11,8 +11,8 @@ import model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-@WebServlet("/allStation-query")
-public class allStationQuery extends HttpServlet {
+@WebServlet("/getStationList")
+public class getStationList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
@@ -22,17 +22,17 @@ public class allStationQuery extends HttpServlet {
         StationDaoImpl station = new StationDaoImpl();
         try {
 
-            ArrayList<Site> siteList = station.allStationQuery();
-            if (!siteList.isEmpty()) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("code", 0);
-                jsonObject.put("msg", "");
-                jsonObject.put("count", siteList.size());
-                JSONArray result = null;
-                result = JSONArray.fromObject(siteList);
-                jsonObject.put("data", result);
+            ArrayList<Station> stationList = station.allStationQuery();
+            if (!stationList.isEmpty()) {
+                //JSONObject jsonObject = new JSONObject();
+                //jsonObject.put("code", 0);
+                //jsonObject.put("msg", "");
+                //jsonObject.put("count", stationList.size());
+                //JSONArray result = null;
+                //result = JSONArray.fromObject(stationList);
+                //jsonObject.put("data", result);
 
-                response.getWriter().print(jsonObject);
+                response.getWriter().print(JSONArray.fromObject(stationList));
             } else {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("code", 1);
