@@ -1,30 +1,31 @@
 package demo;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
-
-import implement.*;
-import model.*;
+import implement.StationDaoImpl;
+import model.Station;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
-@WebServlet("/getStationList")
-public class getStationList extends HttpServlet {
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/getStationById")
+public class getStationById extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        StationDaoImpl station = new StationDaoImpl();
+        String stationId = request.getParameter("stationId");
+        StationDaoImpl sdi = new StationDaoImpl();
         try {
-
-            ArrayList<Station> stationList = station.allStationQuery();
-            if (!stationList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(stationList));
+            Station station = null;
+            station = sdi.selectStationById(stationId);
+            if (station != null) {
+                response.getWriter().print(JSONArray.fromObject(station));
             } else {
                 response.getWriter().print("暂无数据");
             }
@@ -41,3 +42,4 @@ public class getStationList extends HttpServlet {
         doPost(request, response);
     }
 }
+
