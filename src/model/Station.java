@@ -8,6 +8,26 @@ public class Station {
     private String stationName;
     private String phone;
     private int maxNum;
+    private int currentNum;
+
+    public int getCurrentNum() {
+        return currentNum;
+    }
+
+    public void setCurrentNum(int currentNum) {
+        this.currentNum = currentNum;
+    }
+
+    public Station(String stationId, float longitude, float latitude, String address, String stationName, String phone, int maxNum, int currentNum) {
+        this.stationId = stationId;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.address = address;
+        this.stationName = stationName;
+        this.phone = phone;
+        this.maxNum = maxNum;
+        this.currentNum = currentNum;
+    }
 
     public Station() {
     }
@@ -65,16 +85,6 @@ public class Station {
     }
 
     public void setMaxNum(int maxNum) {
-        this.maxNum = maxNum;
-    }
-
-    public Station(String stationId, float longitude, float latitude, String address, String stationName, String phone, int maxNum) {
-        this.stationId = stationId;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.address = address;
-        this.stationName = stationName;
-        this.phone = phone;
         this.maxNum = maxNum;
     }
 }
