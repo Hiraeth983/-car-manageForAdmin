@@ -140,7 +140,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">尊敬的<strong>${status}</strong>，您好！</a>
+                    <a href="#" class="d-block">尊敬的<strong>站长</strong>，您好！</a>
                 </div>
             </div>
 
@@ -318,11 +318,8 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 <script type="text/javascript">
-    // 生成模板
-    function generateStr(data) {
-        // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
-        let str = '';
-        let temp = '';
+    function getStaffNameList() {
+        let staffName = '';
         $.ajax({
             url: 'getStaffNameByStationId',
             type: 'post',
@@ -330,25 +327,35 @@
             data: {
                 stationId: '1'
             },
-            success: function (data1) {
-                console.log(data1);
-                for (let j = 0; j < data1.length; j++) {
-                    temp += `<option value="` + data1[j] + `">` + data1[j] + `</option>`;
+            success: function (data) {
+                // console.log(data);
+                for (let j = 0; j < data.length; j++) {
+                    staffName += `<option value="` + data[j] + `">` + data[j] + `</option>`;
                 }
-                console.log(temp);
-                for (let i = 0; i <= data.length - 1; i++) {
-                    // 外层循环生成tr标签,循环几次,就生成几个tr标签
-                    // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
-                    str += '<tr>';
+                // console.log(staffName);
+            }
+        });
+        return staffName;
+    }
 
-                    str += `<td style="text-align: center">` + data[i]['orderId'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['idCard'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['fullName'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['carId'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['orderTime'] + `</td>`;
-                    str += `<td style="text-align: center">` + data[i]['process'] + `</td>`;
-                    str += `<td style="text-align: center">
+    // 生成模板
+    function generateStr(data) {
+        // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
+        let str = '';
+
+        for (let i = 0; i <= data.length - 1; i++) {
+            // 外层循环生成tr标签,循环几次,就生成几个tr标签
+            // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
+            str += '<tr>';
+
+            str += `<td style="text-align: center">` + data[i]['orderId'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['idCard'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['fullName'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['carId'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['orderTime'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['process'] + `</td>`;
+            str += `<td style="text-align: center">
                         <a class="col-2" href="javascript:void(0);" onclick="clickDelete(` + data[i]['orderId'] + `)" id="delete">
                             <i class="nav-icon far fa-trash-alt" title="删除"></i>
                         </a>
@@ -356,7 +363,7 @@
                             <i class="nav-icon far fa-edit" title="分配任务"></i>
                         </a>
                     <td>`;
-                    str += `<div class="modal fade" id="R` + data[i]['orderId'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            str += `<div class="modal fade" id="R` + data[i]['orderId'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -383,7 +390,7 @@
                                             <label class="col-sm-2 control-label">检测结果</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="` + data[i]['result'] + `"
-                                                       name="result">
+                                                       name="result" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -397,22 +404,22 @@
                                             <label class="col-sm-2 control-label">检测员姓名</label>
                                             <div class="col-sm-10">
                                                 <select class="selectpicker" data-live-search="true" data-style="btn-info" data-live-search-placeholder="选择员工">`;
-                    str += temp;
-                    str += `</select>
+            str += getStaffNameList();
+            str += `</select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">服务评分</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="` + data[i]['score'] + `"
-                                                       name="score">
+                                                       name="score" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">重审资格</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="` + data[i]['available'] + `"
-                                                       name="available">
+                                                       name="available" disabled>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -424,16 +431,9 @@
                             </div>
                         </div>
                     </div>`;
-                    str += '</tr>';
-                }
-                // return str;
-                let tb = document.getElementById('tb');
-                tb.innerHTML = str;
-                $('.selectpicker').selectpicker('val', 'mustard');
-                $('.selectpicker').selectpicker('val', ['mustard', 'relish']);
-            }
-        });
-
+            str += '</tr>';
+        }
+        return str;
     };
 
     $(function () {
@@ -444,7 +444,11 @@
             dataType: 'json',
             data: {},
             success: function (data) {
-                generateStr(data);
+                let str = generateStr(data);
+                let tb = document.getElementById('tb');
+                tb.innerHTML = str;
+                $('.selectpicker').selectpicker('val', 'mustard');
+                $('.selectpicker').selectpicker('val', ['mustard', 'relish']);
             }
         });
     });

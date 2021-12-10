@@ -145,7 +145,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">尊敬的<strong>${status}</strong>，您好！</a>
+                    <a href="#" class="d-block">尊敬的<strong>平台管理员</strong>，您好！</a>
                 </div>
             </div>
 
