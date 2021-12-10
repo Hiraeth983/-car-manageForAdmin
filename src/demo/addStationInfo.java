@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class addStationInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,6 +50,7 @@ public class addStationInfo extends HttpServlet {
         }
     }
 
+    @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
             throws ServletException, IOException {

@@ -32,7 +32,7 @@ public class BaseDao {
     }
 
 
-    public int executeSQL(String preparedSql, Object[] param) throws ClassNotFoundException {
+    public int executeSql(String preparedSql, Object[] param) throws ClassNotFoundException {
         Connection conn = null;
         PreparedStatement pstmt = null;
         /* 处理SQL,执行SQL */

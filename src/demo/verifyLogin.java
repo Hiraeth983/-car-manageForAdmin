@@ -23,7 +23,7 @@ public class verifyLogin extends HttpServlet {
         String password = request.getParameter("password");
         try {
             // 首先判断是否为平台管理员
-            if (userName.equals("admin") && password.equals("admin")) {
+            if ("admin".equals(userName) && "admin".equals(password)) {
                 response.sendRedirect("manageStation.jsp");
             } else {
                 AdminLogDaoImpl ldi = new AdminLogDaoImpl();
