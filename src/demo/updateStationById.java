@@ -27,6 +27,7 @@ public class updateStationById extends HttpServlet {
         String stationName = request.getParameter("stationName");
         String phone = request.getParameter("phone");
         String maxNum = request.getParameter("maxNum");
+        String currentNum = request.getParameter("currentNum");
         StationDaoImpl sdi = new StationDaoImpl();
         try {
             Station station = new Station();
@@ -37,9 +38,10 @@ public class updateStationById extends HttpServlet {
             station.setStationName(stationName);
             station.setPhone(phone);
             station.setMaxNum(Integer.parseInt(maxNum));
+            station.setCurrentNum(Integer.parseInt(currentNum));
             Boolean flag = sdi.updateStation(station);
             if (flag) {
-                ArrayList<Station> list = sdi.allStationQuery();
+                ArrayList<Station> list = sdi.getStationList();
                 response.getWriter().print(JSONArray.fromObject(list));
             } else {
                 response.sendRedirect("error.jsp");

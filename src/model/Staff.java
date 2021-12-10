@@ -1,24 +1,13 @@
 package model;
 
 public class Staff {
-    private String staffId;
-    private String fullName;
-    private String avgScore;
-    private String orderSum;
-    private String stationId;
-    private String isAble;
-
-    public Staff() {
-    }
-
-    public Staff(String staffId, String fullName, String avgScore, String orderSum, String stationId, String isAble) {
-        this.staffId = staffId;
-        this.fullName = fullName;
-        this.avgScore = avgScore;
-        this.orderSum = orderSum;
-        this.stationId = stationId;
-        this.isAble = isAble;
-    }
+    private String staffId;//员工号
+    private String password;//登录密码
+    private String fullName;//员工姓名
+    private double avgScore;//平均评分
+    private int orderSum;//总处理单数
+    private String stationId;//归属站号
+    private int isAble;//员工是否可以被分配任务
 
     public String getStaffId() {
         return staffId;
@@ -26,6 +15,14 @@ public class Staff {
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFullName() {
@@ -36,19 +33,19 @@ public class Staff {
         this.fullName = fullName;
     }
 
-    public String getAvgScore() {
+    public double getAvgScore() {
         return avgScore;
     }
 
-    public void setAvgScore(String avgScore) {
+    public void setAvgScore(double avgScore) {
         this.avgScore = avgScore;
     }
 
-    public String getOrderSum() {
+    public int getOrderSum() {
         return orderSum;
     }
 
-    public void setOrderSum(String orderSum) {
+    public void setOrderSum(int orderSum) {
         this.orderSum = orderSum;
     }
 
@@ -60,11 +57,11 @@ public class Staff {
         this.stationId = stationId;
     }
 
-    public String getIsAble() {
+    public int getIsAble() {
         return isAble;
     }
 
-    public void setIsAble(String isAble) {
+    public void setIsAble(int isAble) {
         this.isAble = isAble;
     }
 }

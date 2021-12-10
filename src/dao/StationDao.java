@@ -11,7 +11,7 @@ public interface StationDao {
      * @return 检测站数据数组
      * @throws Exception
      */
-    ArrayList<Station> allStationQuery() throws Exception;
+    ArrayList<Station> getStationList() throws Exception;
 
     /**
      * 查询某一检测站数据

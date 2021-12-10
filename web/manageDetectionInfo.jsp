@@ -222,10 +222,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-nowrap">时间选择:
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">历史</button>
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">今日</button>
+                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">历史
+                                </button>
+                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">今日
+                                </button>
 
-                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 20px;" id="refresh">刷新</button>
+                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 20px;"
+                                        id="refresh">刷新
+                                </button>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right dataTables_filter" id="dataTable_filter">
@@ -315,36 +319,44 @@
 <script src="dist/js/adminlte.js"></script>
 <script type="text/javascript">
     // 生成模板
-    function generateStr(data){
+    function generateStr(data) {
         // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
         let str = '';
-        //外层循环,生成tr
-        for (let i = 0; i <= data.length - 1; i++) {
-            // 外层循环生成tr标签,循环几次,就生成几个tr标签
-            // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
-            str += '<tr>';
+        let temp = '';
+        $.ajax({
+            url: 'getStaffNameByStationId',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                stationId: '1'
+            },
+            success: function (data1) {
+                console.log(data1);
+                for (let j = 0; j < data1.length; j++) {
+                    temp += `<option value="` + data1[j] + `">` + data1[j] + `</option>`;
+                }
+                console.log(temp);
+                for (let i = 0; i <= data.length - 1; i++) {
+                    // 外层循环生成tr标签,循环几次,就生成几个tr标签
+                    // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
+                    str += '<tr>';
 
-            // 排序问题待解决
-            // for (let j in data[i]) {
-            //     str += `<td>`+data[i][j]+`</td>`;
-            //     console.log(data[i][j]);
-            // }
-            str += `<td style="text-align: center">` + data[i]['order'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['idcard'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['fulllname'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['carId'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['orderTime'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['process'] + `</td>`;
-            str += `<td style="text-align: center">
-                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(`+ data[i]['order'] + `)" id="delete">
+                    str += `<td style="text-align: center">` + data[i]['orderId'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['idCard'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['fullName'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['carId'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['orderTime'] + `</td>`;
+                    str += `<td style="text-align: center">` + data[i]['process'] + `</td>`;
+                    str += `<td style="text-align: center">
+                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(` + data[i]['orderId'] + `)" id="delete">
                             <i class="nav-icon far fa-trash-alt" title="删除"></i>
                         </a>
-                        <a class="col-2" data-toggle="modal" data-target="#R`+data[i]['order'] + `">
+                        <a class="col-2" data-toggle="modal" data-target="#R` + data[i]['orderId'] + `">
                             <i class="nav-icon far fa-edit" title="分配任务"></i>
                         </a>
                     <td>`;
-            str += `<div class="modal fade" id="R`+data[i]['order'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    str += `<div class="modal fade" id="R` + data[i]['orderId'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -370,40 +382,36 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">检测结果</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="`+data[i]['result'] + `"
+                                                <input type="text" class="form-control" value="` + data[i]['result'] + `"
                                                        name="result">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">检测员工号</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="`+data[i]['staffId'] + `"
+                                                <input type="text" class="form-control" value="` + data[i]['staffId'] + `"
                                                        name="staffId">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">检测员姓名</label>
                                             <div class="col-sm-10">
-                                                <select class="selectpicker" data-live-search="true" data-style="btn-info" data-live-search-placeholder="选择员工">
-                                                    <option value="1">李四</option>
-                                                    <option value="2">王五</option>
-                                                    <option value="3">张三</option>
-                                                    <option value="4">刘明</option>
-                                                    <option value="5">吴昊</option>
-                                                </select>
+                                                <select class="selectpicker" data-live-search="true" data-style="btn-info" data-live-search-placeholder="选择员工">`;
+                    str += temp;
+                    str += `</select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">服务评分</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="`+data[i]['score'] + `"
+                                                <input type="text" class="form-control" value="` + data[i]['score'] + `"
                                                        name="score">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">重审资格</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="`+data[i]['available'] + `"
+                                                <input type="text" class="form-control" value="` + data[i]['available'] + `"
                                                        name="available">
                                             </div>
                                         </div>
@@ -416,163 +424,29 @@
                             </div>
                         </div>
                     </div>`;
-            str += '</tr>';
-        }
-        return str;
-    };
-
-    function clickDelete(stationId){
-        console.log('click the a');
-        $.ajax({
-            url: 'deleteStationById',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                stationId:stationId
-            },
-            success: function (data) {
-                // console.log(data);
+                    str += '</tr>';
+                }
+                // return str;
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
-            },
-            error: function () {
-
+                $('.selectpicker').selectpicker('val', 'mustard');
+                $('.selectpicker').selectpicker('val', ['mustard', 'relish']);
             }
         });
+
     };
-
-    function check(obj){
-        // console.log(obj);
-        $.ajax({
-            url: 'updateStationById',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                stationId:obj.stationId.value,
-                longitude:obj.longitude.value,
-                latitude:obj.latitude.value,
-                address:obj.address.value,
-                stationName:obj.stationName.value,
-                phone:obj.phone.value,
-                maxNum:obj.maxNum.value
-            },
-            success: function (data) {
-                // console.log(data);
-                let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                // console.log($('.modal'));
-                $(".modal").modal('hide');
-                $('.modal-backdrop').remove();//去掉遮罩层
-            },
-            error: function () {
-
-            }
-        });
-        // console.log(obj.phone.value);
-        return false;
-    }
 
     $(function () {
+        $.ajaxSettings.async = false; // ajax同步处理
         $.ajax({
-            url: 'getAllRecord',
+            url: 'getRecordList',
             type: 'post',
             dataType: 'json',
             data: {},
             success: function (data) {
-                // console.log(data);
-                let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                $('.selectpicker').selectpicker('val','mustard');
-                $('.selectpicker').selectpicker('val',['mustard','relish']);
-            },
-            error: function () {
-
+                generateStr(data);
             }
         });
-
-        $('#sub').click(function (e) {
-
-            let temp = $("input[name='stationId']").val();
-            // console.log(temp);
-            $.ajax({
-                url: 'getStationById',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    stationId: temp
-                },
-                success: function (data) {
-                    // console.log(data);
-                    let tb = document.getElementById('tb');
-                    let str = generateStr(data);
-                    // 将定义好的内容,写入到tbody标签中
-                    tb.innerHTML = str;
-                },
-                error: function () {
-
-                }
-            });
-            e.preventDefault();
-        });
-
-        $('#refresh').click(function(e){
-            e.preventDefault();
-            $.ajax({
-                url: 'getStationList',
-                type: 'post',
-                dataType: 'json',
-                data: {},
-                success: function (data) {
-                    // console.log(data);
-                    let tb = document.getElementById('tb');
-                    let str = generateStr(data);
-                    // 将定义好的内容,写入到tbody标签中
-                    tb.innerHTML = str;
-                }
-            });
-        });
-
-        $('#addSubmit').click(function(e){
-            e.preventDefault();
-            let longitude = $("input[name='longitude']").val();
-            let latitude = $("input[name='latitude']").val();
-            let address = $("input[name='address']").val();
-            let stationName = $("input[name='stationName']").val();
-            let phone = $("input[name='phone']").val();
-            let maxNum = $("input[name='maxNum']").val();
-            $.ajax({
-                url: 'addStationInfo',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    longitude:longitude,
-                    latitude:latitude,
-                    address:address,
-                    stationName:stationName,
-                    phone:phone,
-                    maxNum:maxNum
-                },
-                success: function (data) {
-                    // console.log(data);
-                    let tb = document.getElementById('tb');
-                    let str = generateStr(data);
-                    // 将定义好的内容,写入到tbody标签中
-                    tb.innerHTML = str;
-                    $('#myModal').modal('hide');
-                },
-                error: function () {
-
-                }
-            });
-        });
-
-
     });
 </script>
 </body>

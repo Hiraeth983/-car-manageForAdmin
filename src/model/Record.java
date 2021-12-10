@@ -1,61 +1,42 @@
 package model;
 
-public class Record {
-    private String order;
-    private String idcard;
-    private String fulllname;
-    private String carId;
-    private String address;
-    private String orderTime;
-    private String checkTime;
-    private String result;
-    private String staffname;
-    private String staffId;
-    private int score;
-    private String process;
-    private int available;
+public class Record{
+    private String orderId;//检测单号
+    private String idCard;//身份证号
+    private String fullName;//姓名
+    private String carId;//车牌号
+    private String address;//站点地址
+    private String orderTime;//预约时间
+    private String checkTime;//检测时间
+    private String result;//检测结果
+    private String staffName;//检测员姓名
+    private String staffId;//检测员工号
+    private int score;//服务评分
+    private String process;//服务进度
+    private int available;//是否可以重审
 
-    public Record() {
+    public String getOrderId() {
+        return orderId;
     }
 
-    public Record(String order, String idcard, String fulllname, String carId, String address, String orderTime, String checkTime, String result, String staffname, String staffId, int score, String process, int available) {
-        this.order = order;
-        this.idcard = idcard;
-        this.fulllname = fulllname;
-        this.carId = carId;
-        this.address = address;
-        this.orderTime = orderTime;
-        this.checkTime = checkTime;
-        this.result = result;
-        this.staffname = staffname;
-        this.staffId = staffId;
-        this.score = score;
-        this.process = process;
-        this.available = available;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public String getOrder() {
-        return order;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
-    public String getIdcard() {
-        return idcard;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setIdcard(String idcard) {
-        this.idcard = idcard;
-    }
-
-    public String getFulllname() {
-        return fulllname;
-    }
-
-    public void setFulllname(String fulllname) {
-        this.fulllname = fulllname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getCarId() {
@@ -98,12 +79,12 @@ public class Record {
         this.result = result;
     }
 
-    public String getStaffname() {
-        return staffname;
+    public String getStaffName() {
+        return staffName;
     }
 
-    public void setStaffname(String staffname) {
-        this.staffname = staffname;
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 
     public String getStaffId() {

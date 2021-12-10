@@ -1,30 +1,30 @@
 package demo;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
-
-import implement.*;
-import model.*;
+import implement.StaffDaoImpl;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
-@WebServlet("/getAllStaff")
-public class getAllStaff extends HttpServlet {
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebServlet("/getStaffNameByStationId")
+public class getStaffNameByStationId extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        StaffDaoImpl rdi = new StaffDaoImpl();
+        String stationId = request.getParameter("stationId");
+        StaffDaoImpl sdi = new StaffDaoImpl();
         try {
-
-            ArrayList<Staff> staffList = rdi.getAllStaff();
-            if (!staffList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(staffList));
+            ArrayList<String> staffNameList = sdi.getStaffNameByStationId(stationId);
+            if (staffNameList != null) {
+                response.getWriter().print(JSONArray.fromObject(staffNameList));
             } else {
                 response.getWriter().print("暂无数据");
             }
@@ -41,3 +41,4 @@ public class getAllStaff extends HttpServlet {
         doPost(request, response);
     }
 }
+

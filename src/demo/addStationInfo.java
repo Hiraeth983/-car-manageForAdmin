@@ -37,7 +37,7 @@ public class addStationInfo extends HttpServlet {
             station.setMaxNum(Integer.parseInt(maxNum));
             Boolean flag = sdi.insertStation(station);
             if (flag) {
-                ArrayList<Station> list = sdi.allStationQuery();
+                ArrayList<Station> list = sdi.getStationList();
                 response.getWriter().print(JSONArray.fromObject(list));
             } else {
                 response.sendRedirect("error.jsp");

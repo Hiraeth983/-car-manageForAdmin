@@ -11,20 +11,20 @@ import model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-@WebServlet("/getStationList")
-public class getStationList extends HttpServlet {
+@WebServlet("/getStaffList")
+public class getStaffList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        StationDaoImpl station = new StationDaoImpl();
+        StaffDaoImpl rdi = new StaffDaoImpl();
         try {
 
-            ArrayList<Station> stationList = station.getStationList();
-            if (!stationList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(stationList));
+            ArrayList<Staff> staffList = rdi.getStaffList();
+            if (!staffList.isEmpty()) {
+                response.getWriter().print(JSONArray.fromObject(staffList));
             } else {
                 response.getWriter().print("暂无数据");
             }

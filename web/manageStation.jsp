@@ -132,7 +132,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">尊敬的<strong>${status}</strong>，您好！</a>
+                    <a href="#" class="d-block">尊敬的<strong>站长</strong>，您好！</a>
                 </div>
             </div>
 
@@ -309,6 +309,7 @@
                                     <th style="text-align: center">站点地址</th>
                                     <th style="text-align: center">联系电话</th>
                                     <th style="text-align: center">每日最大容纳量</th>
+                                    <th style="text-align: center">今日剩余容量</th>
                                     <th style="text-align: center">操作</th>
                                 </tr>
                                 </thead>
@@ -321,7 +322,6 @@
                             </table>
                         </div>
                         <div class="row">
-                            <input hidden value="123">
                         </div>
                     </div>
                 </div>
@@ -395,6 +395,7 @@
             str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['phone'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['maxNum'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['currentNum'] + `</td>`;
             str += `<td style="text-align: center">
                         <a class="col-2" href="javascript:void(0);" onclick="clickDelete(`+ data[i]['stationId'] + `)" id="delete">
                             <i class="nav-icon far fa-trash-alt" title="删除"></i>
@@ -425,14 +426,14 @@
                                             <label class="col-sm-2 control-label">站点经度</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="`+data[i]['longitude'] + `"
-                                                       placeholder="请输入站点经度" name="longitude">
+                                                       placeholder="请输入站点经度" name="longitude" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">站点纬度</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="`+data[i]['latitude'] + `"
-                                                       placeholder="请输入站点纬度" name="latitude">
+                                                       placeholder="请输入站点纬度" name="latitude" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -461,6 +462,13 @@
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="`+data[i]['maxNum'] + `"
                                                        placeholder="请输入每日最大容纳量" name="maxNum">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 control-label">今日剩余容量</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="`+data[i]['currentNum'] + `"
+                                                       placeholder="请输入今日剩余容量" name="currentNum">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -512,7 +520,8 @@
                 address:obj.address.value,
                 stationName:obj.stationName.value,
                 phone:obj.phone.value,
-                maxNum:obj.maxNum.value
+                maxNum:obj.maxNum.value,
+                currentNum:obj.currentNum.value
             },
             success: function (data) {
                 // console.log(data);
@@ -601,6 +610,7 @@
             let stationName = $("input[name='stationName']").val();
             let phone = $("input[name='phone']").val();
             let maxNum = $("input[name='maxNum']").val();
+            let currentNum = $("input[name='currentNum']").val();
             $.ajax({
                 url: 'addStationInfo',
                 type: 'post',
@@ -611,7 +621,8 @@
                     address:address,
                     stationName:stationName,
                     phone:phone,
-                    maxNum:maxNum
+                    maxNum:maxNum,
+                    currentNum:currentNum
                 },
                 success: function (data) {
                     // console.log(data);

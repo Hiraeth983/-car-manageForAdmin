@@ -255,24 +255,29 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 control-label">站点地址</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入站点地址" name="address">
+                                                            <input class="form-control" placeholder="请输入站点地址"
+                                                                   name="address">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 control-label">联系电话</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入联系电话" name="phone">
+                                                            <input class="form-control" placeholder="请输入联系电话"
+                                                                   name="phone">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 control-label">最大容纳量</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入每日最大容纳量" name="maxNum">
+                                                            <input class="form-control" placeholder="请输入每日最大容纳量"
+                                                                   name="maxNum">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="reset" class="btn btn-default">重置</button>
-                                                        <button type="submit" class="btn btn-primary" id="addSubmit">添加</button>
+                                                        <button type="submit" class="btn btn-primary" id="addSubmit">
+                                                            添加
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -280,7 +285,9 @@
                                     </div><!-- /.modal -->
                                 </div>
 
-                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 10px;" id="refresh">刷新</button>
+                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 10px;"
+                                        id="refresh">刷新
+                                </button>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right dataTables_filter" id="dataTable_filter">
@@ -304,6 +311,7 @@
                                 <tr>
                                     <th style="text-align: center">员工编号</th>
                                     <th style="text-align: center">姓名</th>
+                                    <th style="text-align: center">密码</th>
                                     <th style="text-align: center">平均评分</th>
                                     <th style="text-align: center">总服务数</th>
                                     <th style="text-align: center">归属站号</th>
@@ -320,7 +328,6 @@
                             </table>
                         </div>
                         <div class="row">
-                            <input hidden value="123">
                         </div>
                     </div>
                 </div>
@@ -373,7 +380,7 @@
 <script src="dist/js/adminlte.js"></script>
 <script type="text/javascript">
     // 生成模板
-    function generateStr(data){
+    function generateStr(data) {
         // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
         let str = '';
         //外层循环,生成tr
@@ -389,12 +396,17 @@
             // }
             str += `<td style="text-align: center">` + data[i]['staffId'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['fullName'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['password'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['avgScore'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['orderSum'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['stationId'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['isAble'] + `</td>`;
+            if (data[i]['isAble'] === 0) {
+                str += `<td style="text-align: center">` + '无' + `</td>`;
+            } else if (data[i]['isAble'] === 1) {
+                str += `<td style="text-align: center">` + '有' + `</td>`;
+            }
             str += `<td style="text-align: center">
-                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(`+ data[i]['staffId'] + `)" id="delete">
+                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(` + data[i]['staffId'] + `)" id="delete">
                             <i class="nav-icon far fa-trash-alt" title="删除"></i>
                         </a>
                     <td>`;
@@ -403,14 +415,14 @@
         return str;
     };
 
-    function clickDelete(stationId){
+    function clickDelete(stationId) {
         console.log('click the a');
         $.ajax({
             url: 'deleteStationById',
             type: 'post',
             dataType: 'json',
             data: {
-                stationId:stationId
+                stationId: stationId
             },
             success: function (data) {
                 // console.log(data);
@@ -427,7 +439,7 @@
 
     $(function () {
         $.ajax({
-            url: 'getAllStaff',
+            url: 'getStaffList',
             type: 'post',
             dataType: 'json',
             data: {},
@@ -468,7 +480,7 @@
             e.preventDefault();
         });
 
-        $('#refresh').click(function(e){
+        $('#refresh').click(function (e) {
             e.preventDefault();
             $.ajax({
                 url: 'getStationList',
@@ -485,7 +497,7 @@
             });
         });
 
-        $('#addSubmit').click(function(e){
+        $('#addSubmit').click(function (e) {
             e.preventDefault();
             let longitude = $("input[name='longitude']").val();
             let latitude = $("input[name='latitude']").val();
@@ -498,12 +510,12 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    longitude:longitude,
-                    latitude:latitude,
-                    address:address,
-                    stationName:stationName,
-                    phone:phone,
-                    maxNum:maxNum
+                    longitude: longitude,
+                    latitude: latitude,
+                    address: address,
+                    stationName: stationName,
+                    phone: phone,
+                    maxNum: maxNum
                 },
                 success: function (data) {
                     // console.log(data);

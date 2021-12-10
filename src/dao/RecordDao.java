@@ -11,7 +11,7 @@ public interface RecordDao {
      * @return 检测数据数组
      * @throws Exception
      */
-    ArrayList<Record> getAllRecord() throws Exception;
+    ArrayList<Record> getRecordList() throws Exception;
 
     /**
      * 查询某一检测数据

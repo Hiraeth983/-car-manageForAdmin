@@ -25,7 +25,7 @@ public class deleteStationById extends HttpServlet {
         try {
             Boolean flag = sdi.deleteStationById(stationId);
             if (flag) {
-                ArrayList<Station> list = sdi.allStationQuery();
+                ArrayList<Station> list = sdi.getStationList();
                 response.getWriter().print(JSONArray.fromObject(list));
             } else {
                 response.sendRedirect("error.jsp");

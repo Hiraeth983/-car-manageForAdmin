@@ -16,7 +16,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
      * @throws Exception
      */
     @Override
-    public ArrayList<Record> getAllRecord() throws Exception {
+    public ArrayList<Record> getRecordList() throws Exception {
         ArrayList<Record> recordList = new ArrayList<>();
         Connection conn = BaseDao.getConnection();
         String sql = "SELECT * FROM record";
@@ -24,9 +24,9 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
             Record record = new Record();
-            record.setOrder(result.getString(1).trim());
-            record.setIdcard(result.getString(2).trim());
-            record.setFulllname(result.getString(3).trim());
+            record.setOrderId(result.getString(1).trim());
+            record.setIdCard(result.getString(2).trim());
+            record.setFullName(result.getString(3).trim());
             record.setCarId(result.getString(4).trim());
             record.setAddress(result.getString(5).trim());
             record.setOrderTime(result.getString(6).trim());
@@ -44,7 +44,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             if(result.getString(9) != null){
                 staffName = result.getString(9);
             }
-            record.setStaffname(staffName);
+            record.setStaffName(staffName);
             String staffId = "待定";
             if(result.getString(10) != null){
                 staffId = result.getString(10);
@@ -79,15 +79,15 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
             record = new Record();
-            record.setOrder(result.getString(1).trim());
-            record.setIdcard(result.getString(2).trim());
-            record.setFulllname(result.getString(3).trim());
+            record.setOrderId(result.getString(1).trim());
+            record.setIdCard(result.getString(2).trim());
+            record.setFullName(result.getString(3).trim());
             record.setCarId(result.getString(4).trim());
             record.setAddress(result.getString(5).trim());
             record.setOrderTime(result.getString(6).trim());
             record.setCheckTime(result.getString(7).trim());
             record.setResult(result.getString(8).trim());
-            record.setStaffname(result.getString(9).trim());
+            record.setStaffName(result.getString(9).trim());
             record.setStaffId(result.getString(10).trim());
             record.setScore(result.getInt(11));
             record.setProcess(result.getString(12).trim());

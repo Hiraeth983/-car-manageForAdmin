@@ -18,7 +18,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
      * @throws Exception
      */
     @Override
-    public ArrayList<Station> allStationQuery() throws Exception {
+    public ArrayList<Station> getStationList() throws Exception {
         ArrayList<Station> siteList = new ArrayList<>();
         Connection conn = BaseDao.getConnection();
         String sql = "SELECT * FROM station";
@@ -33,6 +33,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
             site.setStationName(result.getString(5).trim());
             site.setPhone(result.getString(6).trim());
             site.setMaxNum(result.getInt(7));
+            site.setCurrentNum(result.getInt(8));
             siteList.add(site);
         }
         BaseDao.closeAll(conn, pstmt, result);
@@ -67,6 +68,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
             station.setStationName(result.getString(5).trim());
             station.setPhone(result.getString(6).trim());
             station.setMaxNum(result.getInt(7));
+            station.setCurrentNum(result.getInt(8));
         }
         BaseDao.closeAll(conn, pstmt, result);
         return station;
@@ -82,7 +84,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
     @Override
     public boolean updateStation(Station station) throws Exception {
         Connection conn = BaseDao.getConnection();
-        String sql = "update station set latitude=?,longitude=?,address=?,stationName=?,phone=?,maxNum=? where stationId=?;";
+        String sql = "update station set latitude=?,longitude=?,address=?,stationName=?,phone=?,maxNum=?,currentNum=? where stationId=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setFloat(1, station.getLatitude());
         pstmt.setFloat(2, station.getLongitude());
@@ -90,7 +92,8 @@ public class StationDaoImpl extends BaseDao implements StationDao {
         pstmt.setString(4, station.getStationName());
         pstmt.setString(5, station.getPhone());
         pstmt.setInt(6, station.getMaxNum());
-        pstmt.setString(7, station.getStationId());
+        pstmt.setInt(7, station.getCurrentNum());
+        pstmt.setString(8, station.getStationId());
 
         boolean flag = pstmt.executeUpdate() > 0;
         conn.close();
@@ -139,7 +142,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
             stationId = Integer.parseInt(temp) + 1;
         }
 
-        sql = "insert into station values(?,?,?,?,?,?,?)";
+        sql = "insert into station values(?,?,?,?,?,?,?,?)";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, stationId + "");
         pstmt.setFloat(2, station.getLongitude());
@@ -148,6 +151,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
         pstmt.setString(5, station.getStationName());
         pstmt.setString(6, station.getPhone());
         pstmt.setInt(7, station.getMaxNum());
+        pstmt.setInt(8, station.getCurrentNum());
 
         boolean flag = pstmt.executeUpdate() > 0;
         conn.close();

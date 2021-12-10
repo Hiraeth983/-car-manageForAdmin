@@ -11,8 +11,8 @@ import model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-@WebServlet("/getAllRecord")
-public class getAllRecord extends HttpServlet {
+@WebServlet("/getRecordList")
+public class getRecordList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
@@ -22,7 +22,7 @@ public class getAllRecord extends HttpServlet {
         RecordDaoImpl rdi = new RecordDaoImpl();
         try {
 
-            ArrayList<Record> recordList = rdi.getAllRecord();
+            ArrayList<Record> recordList = rdi.getRecordList();
             if (!recordList.isEmpty()) {
                 response.getWriter().print(JSONArray.fromObject(recordList));
             } else {
