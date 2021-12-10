@@ -1,8 +1,8 @@
 package demo;
 
-
 import implement.AdminLogDaoImpl;
 import model.AdminLog;
+import net.sf.json.JSONArray;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,37 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
-@WebServlet("/verifyLogin")
-public class verifyLogin extends HttpServlet {
+@WebServlet("/deleteAdminLogByUserName")
+public class deleteAdminLogByUserName extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
         String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
+        AdminLogDaoImpl adi = new AdminLogDaoImpl();
         try {
-            // 首先判断是否为平台管理员
-            if (userName.equals("admin") && password.equals("admin")) {
-                response.sendRedirect("manageStation.jsp");
+            Boolean flag = adi.deleteAdminLogByUserName(userName);
+            if (flag) {
+                ArrayList<AdminLog> adminLogList = adi.getAdminLogList();
+                response.getWriter().print(JSONArray.fromObject(adminLogList));
             } else {
-                AdminLogDaoImpl ldi = new AdminLogDaoImpl();
-                AdminLog adminLog = ldi.getAdminLogByUserName(userName);
-                if (adminLog != null) {
-                    request.setAttribute("stationId", adminLog.getStationId());
-                    response.sendRedirect("manageStaff.jsp");
-                } else {
-                    response.sendRedirect("error.jsp");
-                }
+                response.sendRedirect("error.jsp");
             }
 
         } catch (Exception e) {
             response.sendRedirect("error.jsp");
             e.printStackTrace();
         }
-
     }
 
     public void doGet(HttpServletRequest request,
@@ -48,6 +42,5 @@ public class verifyLogin extends HttpServlet {
             throws ServletException, IOException {
         doPost(request, response);
     }
-
 }
 

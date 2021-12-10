@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 李龙
-  Date: 2021/12/3
-  Time: 14:57
+  Date: 2021/12/10
+  Time: 19:01
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8"
@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>检测站管理</title>
+    <title>站长信息管理</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="plugins/bootstrapValidate/css/bootstrapValidator.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -155,16 +156,16 @@
                     role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <a href="manageStation.jsp" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="manageStation.jsp" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 检测站管理
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="manageStationMaster.jsp" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="manageStationMaster.jsp" class="nav-link active">
                             <i class="nav-icon fas fa-search"></i>
                             <p>
                                 站长信息管理
@@ -184,7 +185,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div>&nbsp;</div>
-                <h3 class="text-dark mb-4">检测站管理</h3>
+                <h3 class="text-dark mb-4">站长信息管理</h3>
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="row">
@@ -204,48 +205,27 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-horizontal" role="form"
-                                                      action="insertStation" method="post">
+                                                <form class="form-horizontal" role="form" id="addForm"
+                                                      action="insertStationMaster" method="post">
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点经度</label>
+                                                        <label class="col-sm-2 control-label">用户名</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="userName"
+                                                                   placeholder="请输入用户名" name="userName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 control-label">密码</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="123456"
+                                                                   placeholder="请输入密码" name="passowrd">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 control-label">所属站号</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control"
-                                                                   placeholder="请输入站点经度" name="longitude">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点纬度</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入站点纬度" name="latitude">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点名称</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入站点名称" name="stationName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点地址</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入站点地址"
-                                                                   name="address">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">联系电话</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入联系电话"
-                                                                   name="phone">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">最大容纳量</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入每日最大容纳量"
-                                                                   name="maxNum">
+                                                                   placeholder="请输入所属站号" name="stationId">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -269,7 +249,7 @@
                                     <form class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                         <div class="input-group"><input
                                                 class="bg-light form-control form-control-sm border-0 small" type="text"
-                                                placeholder="站点编号搜索..." name="stationId">
+                                                placeholder="站点编号搜索..." name="stationIdForSearch">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary py-0" type="submit" id="sub"><i
                                                         class="fas fa-search"></i></button>
@@ -284,14 +264,9 @@
                             <table class="table my-0" id="dataTable1">
                                 <thead>
                                 <tr>
+                                    <th style="text-align: center">用户名</th>
+                                    <th style="text-align: center">密码</th>
                                     <th style="text-align: center">站点编号</th>
-                                    <th style="text-align: center">站点经度</th>
-                                    <th style="text-align: center">站点纬度</th>
-                                    <th style="text-align: center">站点名称</th>
-                                    <th style="text-align: center">站点地址</th>
-                                    <th style="text-align: center">联系电话</th>
-                                    <th style="text-align: center">每日最大容纳量</th>
-                                    <th style="text-align: center">今日剩余容量</th>
                                     <th style="text-align: center">操作</th>
                                 </tr>
                                 </thead>
@@ -334,13 +309,8 @@
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-
-<!-- Sparkline -->
 <script src="plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-
-
 <!-- jQuery Knob Chart -->
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -354,6 +324,8 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/bootstrapValidate/js/bootstrapValidator.min.js"></script>
 <script type="text/javascript">
     // 生成模板
     function generateStr(data) {
@@ -361,32 +333,20 @@
         let str = '';
         //外层循环,生成tr
         for (let i = 0; i <= data.length - 1; i++) {
-            // 外层循环生成tr标签,循环几次,就生成几个tr标签
-            // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
             str += '<tr>';
 
-            // 排序问题待解决
-            // for (let j in data[i]) {
-            //     str += `<td>`+data[i][j]+`</td>`;
-            //     console.log(data[i][j]);
-            // }
+            str += `<td style="text-align: center">` + data[i]['userName'] + `</td>`;
+            str += `<td style="text-align: center">` + data[i]['password'] + `</td>`;
             str += `<td style="text-align: center">` + data[i]['stationId'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['longitude'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['latitude'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['stationName'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['phone'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['maxNum'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['currentNum'] + `</td>`;
             str += `<td style="text-align: center">
-                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(` + data[i]['stationId'] + `)" id="delete">
+                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete('` + data[i]['userName'] + `')" id="delete">
                             <i class="nav-icon far fa-trash-alt" title="删除"></i>
                         </a>
-                        <a class="col-2" data-toggle="modal" data-target="#S` + data[i]['stationId'] + `">
+                        <a class="col-2" data-toggle="modal" data-target="#S` + data[i]['userName'] + `">
                             <i class="nav-icon far fa-edit" title="修改"></i>
                         </a>
                     <td>`;
-            str += `<div class="modal fade" id="S` + data[i]['stationId'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            str += `<div class="modal fade" id="S` + data[i]['userName'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -398,59 +358,24 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal" role="form" onsubmit="return check(this)">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 control-label">站点编号</label>
+                                            <label class="col-sm-2 control-label">用户名</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="` + data[i]['userName'] + `"
+                                                       placeholder="请输入用户名" name="userName" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 control-label">密码</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="` + data[i]['password'] + `"
+                                                       placeholder="请输入密码" name="password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 control-label">所属站号</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="` + data[i]['stationId'] + `"
-                                                       placeholder="请输入站点编号" name="stationId" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">站点经度</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['longitude'] + `"
-                                                       placeholder="请输入站点经度" name="longitude" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">站点纬度</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['latitude'] + `"
-                                                       placeholder="请输入站点纬度" name="latitude" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">站点地址</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['address'] + `"
-                                                       placeholder="请输入站点地址" name="address">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">站点名称</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['stationName'] + `"
-                                                       placeholder="请输入站点名称" name="stationName">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">联系电话</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['phone'] + `"
-                                                       placeholder="请输入联系电话" name="phone">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">每日最大容纳量</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['maxNum'] + `"
-                                                       placeholder="请输入每日最大容纳量" name="maxNum">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">今日剩余容量</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['currentNum'] + `"
-                                                       placeholder="请输入今日剩余容量" name="currentNum">
+                                                       placeholder="请输入所属站号" name="stationId">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -467,14 +392,14 @@
         return str;
     };
 
-    function clickDelete(stationId) {
+    function clickDelete(userName) {
         console.log('click the a');
         $.ajax({
-            url: 'deleteStationById',
+            url: 'deleteAdminLogByUserName',
             type: 'post',
             dataType: 'json',
             data: {
-                stationId: stationId
+                userName: userName
             },
             success: function (data) {
                 // console.log(data);
@@ -482,9 +407,6 @@
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
-            },
-            error: function () {
-
             }
         });
     };
@@ -492,18 +414,13 @@
     function check(obj) {
         // console.log(obj);
         $.ajax({
-            url: 'updateStationById',
+            url: 'updateAdminLogByUserName',
             type: 'post',
             dataType: 'json',
             data: {
-                stationId: obj.stationId.value,
-                longitude: obj.longitude.value,
-                latitude: obj.latitude.value,
-                address: obj.address.value,
-                stationName: obj.stationName.value,
-                phone: obj.phone.value,
-                maxNum: obj.maxNum.value,
-                currentNum: obj.currentNum.value
+                userName:obj.userName.value,
+                password:obj.password.value,
+                stationId: obj.stationId.value
             },
             success: function (data) {
                 // console.log(data);
@@ -524,18 +441,48 @@
     }
 
     $(function () {
-        // $.ajax({
-        //     url: `https://restapi.amap.com/v3/geocode/geo?address=北京市朝阳区阜通东大街6号&key=7ee9d0394759c4e62058cdf53813b151&s=rsv3`,
-        //     type: 'get',
-        //     success: res => {
-        //         console.log(res, '得到经纬度');
-        //     }
-        // })
+        $.ajaxSettings.async = false;
+        $('#addForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                userName: {
+                    message: 'The username is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 4,
+                            max: 8,
+                            message: '用户名由4-8位字符组成'
+                        },
+                        threshold: 4,//有4字符以上才发送ajax请求
+                        remote: {//ajax验证。server result:{"valid",true or false}
+                            url: "verifyUserNameExists",
+                            message: '用户名已存在,请重新输入',
+                            delay: 1000,//ajax刷新的时间是1秒一次
+                            type: 'POST',
+                            //自定义提交数据，默认值提交当前input value
+                            data: function (validator) {
+                                return {
+                                    userName: $("#userName").val(),
+                                    method: "checkUserName"//UserServlet判断调用方法关键字。
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+        });
         $.ajax({
-            url: 'getStationList',
+            url: 'getAdminLogList',
             type: 'post',
             dataType: 'json',
-            contentType: "application/json; charset=utf-8",
             data: {},
             success: function (data) {
                 // console.log(data);
@@ -543,18 +490,15 @@
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
-            },
-            error: function () {
-
             }
         });
 
         $('#sub').click(function (e) {
 
-            let temp = $("input[name='stationId']").val();
+            let temp = $("input[name='stationIdForSearch']").val();
             // console.log(temp);
             $.ajax({
-                url: 'getStationById',
+                url: 'getAdminLogByStationId',
                 type: 'post',
                 dataType: 'json',
                 data: {
@@ -566,9 +510,6 @@
                     let str = generateStr(data);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
-                },
-                error: function () {
-
                 }
             });
             e.preventDefault();
@@ -577,7 +518,7 @@
         $('#refresh').click(function (e) {
             e.preventDefault();
             $.ajax({
-                url: 'getStationList',
+                url: 'getAdminLogList',
                 type: 'post',
                 dataType: 'json',
                 data: {},
@@ -593,25 +534,17 @@
 
         $('#addSubmit').click(function (e) {
             e.preventDefault();
-            let longitude = $("input[name='longitude']").val();
-            let latitude = $("input[name='latitude']").val();
-            let address = $("input[name='address']").val();
-            let stationName = $("input[name='stationName']").val();
-            let phone = $("input[name='phone']").val();
-            let maxNum = $("input[name='maxNum']").val();
-            let currentNum = $("input[name='currentNum']").val();
+            let userName = $("input[name='userName']").val();
+            let password = $("input[name='password']").val();
+            let stationId = $("input[name='stationId']").val();
             $.ajax({
-                url: 'addStationInfo',
+                url: 'insertAdminLog',
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    longitude: longitude,
-                    latitude: latitude,
-                    address: address,
-                    stationName: stationName,
-                    phone: phone,
-                    maxNum: maxNum,
-                    currentNum: currentNum
+                    userName: userName,
+                    password: password,
+                    stationId: stationId
                 },
                 success: function (data) {
                     // console.log(data);
@@ -620,9 +553,6 @@
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
                     $('#myModal').modal('hide');
-                },
-                error: function () {
-
                 }
             });
         });
