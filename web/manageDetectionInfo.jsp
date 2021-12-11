@@ -46,6 +46,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -217,17 +218,344 @@
         <section class="content">
             <div class="container-fluid">
                 <div>&nbsp;</div>
-                <h3 class="text-dark mb-4">车辆检测信息管理</h3>
+                <h3 class="text-dark mb-4">分配员工检测任务</h3>
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6 text-nowrap">时间选择:
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">历史
+                            <div class="col-md-6 text-nowrap">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#modal-lg">
+                                    分配任务
                                 </button>
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 10px;">今日
-                                </button>
+                                <div class="modal fade" id="modal-lg">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">分配任务</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card card-default">
+                                                            <div class="card-body p-0">
+                                                                <div class="bs-stepper">
+                                                                    <div class="bs-stepper-header" role="tablist">
+                                                                        <div class="step"
+                                                                             data-target="#select-order-part">
+                                                                            <button type="button" class="step-trigger"
+                                                                                    role="tab"
+                                                                                    aria-controls="select-order-part"
+                                                                                    id="select-order-part-trigger">
+                                                                                <span class="bs-stepper-circle">1</span>
+                                                                                <span class="bs-stepper-label">选择单号</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                        <div class="step"
+                                                                             data-target="#select-time-part">
+                                                                            <button type="button" class="step-trigger"
+                                                                                    role="tab"
+                                                                                    aria-controls="select-time-part"
+                                                                                    id="select-time-part-trigger">
+                                                                                <span class="bs-stepper-circle">2</span>
+                                                                                <span class="bs-stepper-label">选择时间段</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                        <div class="step"
+                                                                             data-target="#select-staff-part">
+                                                                            <button type="button" class="step-trigger"
+                                                                                    role="tab"
+                                                                                    aria-controls="select-staff-part"
+                                                                                    id="select-staff-part-trigger">
+                                                                                <span class="bs-stepper-circle">3</span>
+                                                                                <span class="bs-stepper-label">派遣员工</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="line"></div>
+                                                                        <div class="step" data-target="#submit-part">
+                                                                            <button type="button" class="step-trigger"
+                                                                                    role="tab"
+                                                                                    aria-controls="submit-part"
+                                                                                    id="submit-part-trigger">
+                                                                                <span class="bs-stepper-circle">4</span>
+                                                                                <span class="bs-stepper-label">提交信息</span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="bs-stepper-content">
+                                                                        <div id="select-order-part" class="content"
+                                                                             role="tabpanel"
+                                                                             aria-labelledby="select-order-part-trigger">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="selectOrderId">单号</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <select class="selectpicker"
+                                                                                            name="selectOrderId"
+                                                                                            id="selectOrderId"
+                                                                                            data-live-search="true"
+                                                                                            data-style="btn-info"
+                                                                                            title="请选择单号"
+                                                                                            data-live-search-placeholder="搜索单号">
 
-                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 20px;"
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="selectOrderId">身份证号</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="idCard" id="idCard"
+                                                                                           disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="fullName">车主姓名</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="fullName" id="fullName"
+                                                                                           disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="carId">车牌号</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                            id="carId"
+                                                                                           disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="address">站点地址</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="address" id="address"
+                                                                                           disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="orderTime">预约时间</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="orderTime"
+                                                                                           id="orderTime" disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="btn btn-primary"
+                                                                                    onclick="stepper.next()">Next
+                                                                            </button>
+                                                                        </div>
+                                                                        <div id="select-time-part" class="content"
+                                                                             role="tabpanel"
+                                                                             aria-labelledby="select-time-part-trigger">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label">选择检测时间</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <select class="selectpicker"
+                                                                                            id="selectCheckTime"
+                                                                                            data-live-search="true"
+                                                                                            data-style="btn-info"
+                                                                                            title="请选择检测时间"
+                                                                                            data-live-search-placeholder="搜索检测时间">
+                                                                                        <option value="8:00:00">
+                                                                                            8:00:00
+                                                                                        </option>
+                                                                                        <option value="10:00:00">
+                                                                                            10:00:00
+                                                                                        </option>
+                                                                                        <option value="13:00:00">
+                                                                                            13:00:00
+                                                                                        </option>
+                                                                                        <option value="15:00:00">
+                                                                                            15:00:00
+                                                                                        </option>
+                                                                                        <option value="17:00:00">
+                                                                                            17:00:00
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="btn btn-primary"
+                                                                                    onclick="stepper.previous()">
+                                                                                Previous
+                                                                            </button>
+                                                                            <button class="btn btn-primary"
+                                                                                    onclick="stepper.next()">Next
+                                                                            </button>
+                                                                        </div>
+                                                                        <div id="select-staff-part" class="content"
+                                                                             role="tabpanel"
+                                                                             aria-labelledby="select-staff-part-trigger">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label"
+                                                                                       for="staffId">检测员工号</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="staffId"
+                                                                                           id="staffId" disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-2 control-label">选择员工姓名</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <select class="selectpicker"
+                                                                                            id="selectStaff"
+                                                                                            data-live-search="true"
+                                                                                            data-style="btn-info"
+                                                                                            title="请选择员工姓名"
+                                                                                            data-live-search-placeholder="搜索员工姓名">
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="btn btn-primary"
+                                                                                    onclick="stepper.previous()">
+                                                                                Previous
+                                                                            </button>
+                                                                            <button class="btn btn-primary"
+                                                                                    onclick="stepper.next()">Next
+                                                                            </button>
+                                                                        </div>
+                                                                        <div id="submit-part" class="content"
+                                                                             role="tabpanel"
+                                                                             aria-labelledby="submit-part-trigger">
+                                                                            <form class="form-horizontal" role="form" id="assignForm">
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmOrderId">单号</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmOrderId"
+                                                                                               id="confirmOrderId"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmIdCard">身份证号</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmIdCard"
+                                                                                               id="confirmIdCard"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmFullName">车主姓名</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmFullName"
+                                                                                               id="confirmFullName"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmCarId">车牌号</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmCarId"
+                                                                                               id="confirmCarId"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmAddress">站点地址</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmAddress"
+                                                                                               id="confirmAddress"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmOrderTime">预约时间</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmOrderTime"
+                                                                                               id="confirmOrderTime"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmCheckTime">检测时间</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmCheckTime"
+                                                                                               id="confirmCheckTime"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmStaffId">检测员工号</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmStaffId"
+                                                                                               id="confirmStaffId"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 control-label"
+                                                                                           for="confirmStaffName">检测员姓名</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               name="confirmStaffName"
+                                                                                               id="confirmStaffName"
+                                                                                               disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <button class="btn btn-primary"
+                                                                                        onclick="stepper.previous()">
+                                                                                    Previous
+                                                                                </button>
+                                                                                <button type="submit"
+                                                                                        class="btn btn-primary">分配任务
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 10px;"
                                         id="refresh">刷新
                                 </button>
                             </div>
@@ -254,7 +582,7 @@
                                     <th style="text-align: center">单号</th>
                                     <th style="text-align: center">身份证号</th>
                                     <th style="text-align: center">车主姓名</th>
-                                    <th style="text-align: center">车主姓名</th>
+                                    <th style="text-align: center">车牌号</th>
                                     <th style="text-align: center">站点地址</th>
                                     <th style="text-align: center">预约时间</th>
                                     <th style="text-align: center">服务进度</th>
@@ -317,142 +645,8 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<script type="text/javascript">
-    function getStaffNameList() {
-        let staffName = '';
-        $.ajax({
-            url: 'getStaffNameByStationId',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                stationId: '1'
-            },
-            success: function (data) {
-                // console.log(data);
-                for (let j = 0; j < data.length; j++) {
-                    staffName += `<option value="` + data[j] + `">` + data[j] + `</option>`;
-                }
-                // console.log(staffName);
-            }
-        });
-        return staffName;
-    }
-
-    // 生成模板
-    function generateStr(data) {
-        // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
-        let str = '';
-
-        for (let i = 0; i <= data.length - 1; i++) {
-            // 外层循环生成tr标签,循环几次,就生成几个tr标签
-            // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
-            str += '<tr>';
-
-            str += `<td style="text-align: center">` + data[i]['orderId'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['idCard'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['fullName'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['carId'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['address'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['orderTime'] + `</td>`;
-            str += `<td style="text-align: center">` + data[i]['process'] + `</td>`;
-            str += `<td style="text-align: center">
-                        <a class="col-2" href="javascript:void(0);" onclick="clickDelete(` + data[i]['orderId'] + `)" id="delete">
-                            <i class="nav-icon far fa-trash-alt" title="删除"></i>
-                        </a>
-                        <a class="col-2" data-toggle="modal" data-target="#R` + data[i]['orderId'] + `">
-                            <i class="nav-icon far fa-edit" title="分配任务"></i>
-                        </a>
-                    <td>`;
-            str += `<div class="modal fade" id="R` + data[i]['orderId'] + `" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title text-left">分配任务</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal" role="form" onsubmit="return check(this)">
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">检测时间</label>
-                                            <div class="col-sm-10">
-                                                <select class="selectpicker" data-live-search="true" data-style="btn-info" data-live-search-placeholder="选择检测时间">
-                                                    <option value="1">8:00-9:00</option>
-                                                    <option value="2">10:00-11:00</option>
-                                                    <option value="3">13:00-14:00</option>
-                                                    <option value="4">15:00-16:00</option>
-                                                    <option value="5">17:00-18:00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">检测结果</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['result'] + `"
-                                                       name="result" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">检测员工号</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['staffId'] + `"
-                                                       name="staffId">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">检测员姓名</label>
-                                            <div class="col-sm-10">
-                                                <select class="selectpicker" data-live-search="true" data-style="btn-info" data-live-search-placeholder="选择员工">`;
-            str += getStaffNameList();
-            str += `</select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">服务评分</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['score'] + `"
-                                                       name="score" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 control-label">重审资格</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="` + data[i]['available'] + `"
-                                                       name="available" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="reset" class="btn btn-default">重置</button>
-                                            <button type="submit" class="btn btn-primary">分配</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            str += '</tr>';
-        }
-        return str;
-    };
-
-    $(function () {
-        $.ajaxSettings.async = false; // ajax同步处理
-        $.ajax({
-            url: 'getRecordList',
-            type: 'post',
-            dataType: 'json',
-            data: {},
-            success: function (data) {
-                let str = generateStr(data);
-                let tb = document.getElementById('tb');
-                tb.innerHTML = str;
-                $('.selectpicker').selectpicker('val', 'mustard');
-                $('.selectpicker').selectpicker('val', ['mustard', 'relish']);
-            }
-        });
-    });
-</script>
+<script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<script src="dist/js/pages/manageDetectionInfo.js"></script>
 </body>
 </html>
 

@@ -3,21 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <link rel="stylesheet" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
-  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
 </head>
 <body>
-<select class="selectpicker" data-live-search="true">
-  <option value="1">8:00-9:00</option>
-  <option value="2">10:00-11:00</option>
-  <option value="3">13:00-14:00</option>
-  <option value="4">15:00-16:00</option>
-  <option value="5">17:00-18:00</option>
-</select>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
+    Launch Large Modal
+</button>
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">分配任务</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-body p-0">
+                                <div class="bs-stepper">
+                                    <div class="bs-stepper-header" role="tablist">
+                                        <div class="step" data-target="#select-time-part">
+                                            <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="select-time-part"
+                                                    id="select-time-part-trigger">
+                                                <span class="bs-stepper-circle">1</span>
+                                                <span class="bs-stepper-label">选择时间段</span>
+                                            </button>
+                                        </div>
+                                        <div class="line"></div>
+                                        <div class="step" data-target="#select-staff-part">
+                                            <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="select-staff-part"
+                                                    id="select-staff-part-trigger">
+                                                <span class="bs-stepper-circle">2</span>
+                                                <span class="bs-stepper-label">派遣员工</span>
+                                            </button>
+                                        </div>
+                                        <div class="line"></div>
+                                        <div class="step" data-target="#submit-part">
+                                            <button type="button" class="step-trigger" role="tab"
+                                                    aria-controls="submit-part"
+                                                    id="submit-part-trigger">
+                                                <span class="bs-stepper-circle">3</span>
+                                                <span class="bs-stepper-label">提交信息</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="bs-stepper-content">
+                                        <div id="select-time-part" class="content" role="tabpanel"
+                                             aria-labelledby="select-time-part-trigger">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                                       placeholder="Enter email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                                       placeholder="Password">
+                                            </div>
+                                            <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                                        </div>
+                                        <div id="select-staff-part" class="content" role="tabpanel"
+                                             aria-labelledby="select-staff-part-trigger">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">File input</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input"
+                                                               id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Choose
+                                                            file</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">Upload</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous
+                                            </button>
+                                            <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                                        </div>
+                                        <div id="submit-part" class="content" role="tabpanel"
+                                             aria-labelledby="submit-part-trigger">
+                                            <div class="form-group">
+                                                第三部分
+                                            </div>
+                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">分配任务</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <script src="plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        window.stepper = new Stepper($('.bs-stepper')[0]);
+    });
+</script>
 </body>
 </html>

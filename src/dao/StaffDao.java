@@ -18,5 +18,5 @@ public interface StaffDao {
      * @return 指定检测站员工姓名列表
      * @throws Exception
      */
-    ArrayList<String> getStaffNameByStationId(String stationId) throws Exception;
+    ArrayList<Staff> getStaffListByStationId(String stationId) throws Exception;
 }

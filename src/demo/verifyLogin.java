@@ -29,7 +29,7 @@ public class verifyLogin extends HttpServlet {
                 AdminLogDaoImpl ldi = new AdminLogDaoImpl();
                 AdminLog adminLog = ldi.getAdminLogByUserName(userName);
                 if (adminLog != null) {
-                    request.setAttribute("stationId", adminLog.getStationId());
+                    request.getSession().setAttribute("stationId", adminLog.getStationId());
                     response.sendRedirect("manageStaff.jsp");
                 } else {
                     response.sendRedirect("error.jsp");
