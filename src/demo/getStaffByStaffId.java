@@ -1,29 +1,31 @@
 package demo;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
-
-import implement.*;
-import model.*;
+import implement.StaffDaoImpl;
+import model.Staff;
 import net.sf.json.JSONArray;
 
-@WebServlet("/getStaffList")
-public class getStaffList extends HttpServlet {
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/getStaffByStaffId")
+public class getStaffByStaffId extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        StaffDaoImpl rdi = new StaffDaoImpl();
+        String staffId = request.getParameter("staffId");
+        StaffDaoImpl sdi = new StaffDaoImpl();
         try {
-
-            ArrayList<Staff> staffList = rdi.getStaffList();
-            if (!staffList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(staffList));
+            Staff staff = null;
+            staff = sdi.getStaffByStaffId(staffId);
+            if (staff != null) {
+                response.getWriter().print(JSONArray.fromObject(staff));
             } else {
                 response.getWriter().print("暂无数据");
             }
@@ -40,3 +42,4 @@ public class getStaffList extends HttpServlet {
         doPost(request, response);
     }
 }
+

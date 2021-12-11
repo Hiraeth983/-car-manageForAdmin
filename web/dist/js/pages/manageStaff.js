@@ -1,3 +1,4 @@
+let stationList = [];
 // 生成模板
 function generateStr(data) {
     // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
@@ -34,14 +35,15 @@ function generateStr(data) {
     return str;
 };
 
-function clickDelete(stationId) {
-    console.log('click the a');
+function clickDelete(staffId) {
+    // console.log('click the a');
     $.ajax({
-        url: 'deleteStationById',
+        url: 'deleteStaffByStaffId',
         type: 'post',
         dataType: 'json',
         data: {
-            stationId: stationId
+            staffId: staffId,
+            stationId: $("input[name='stationId']").val()
         },
         success: function (data) {
             // console.log(data);
@@ -49,19 +51,18 @@ function clickDelete(stationId) {
             let str = generateStr(data);
             // 将定义好的内容,写入到tbody标签中
             tb.innerHTML = str;
-        },
-        error: function () {
-
         }
     });
 };
 
 $(function () {
     $.ajax({
-        url: 'getStaffList',
+        url: 'getStaffListByStationId',
         type: 'post',
         dataType: 'json',
-        data: {},
+        data: {
+            stationId: $("input[name='stationId']").val()
+        },
         success: function (data) {
             // console.log(data);
             let tb = document.getElementById('tb');
@@ -73,17 +74,17 @@ $(function () {
 
         }
     });
-
+    $("#isAble").selectpicker("refresh");
     $('#sub').click(function (e) {
 
-        let temp = $("input[name='stationId']").val();
+        let temp = $("input[name='staffId']").val();
         // console.log(temp);
         $.ajax({
-            url: 'getStationById',
+            url: 'getStaffByStaffId',
             type: 'post',
             dataType: 'json',
             data: {
-                stationId: temp
+                staffId: temp
             },
             success: function (data) {
                 // console.log(data);
@@ -102,10 +103,12 @@ $(function () {
     $('#refresh').click(function (e) {
         e.preventDefault();
         $.ajax({
-            url: 'getStationList',
+            url: 'getStaffListByStationId',
             type: 'post',
             dataType: 'json',
-            data: {},
+            data: {
+                stationId: $("input[name='stationId']").val()
+            },
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
@@ -118,23 +121,23 @@ $(function () {
 
     $('#addSubmit').click(function (e) {
         e.preventDefault();
-        let longitude = $("input[name='longitude']").val();
-        let latitude = $("input[name='latitude']").val();
-        let address = $("input[name='address']").val();
-        let stationName = $("input[name='stationName']").val();
-        let phone = $("input[name='phone']").val();
-        let maxNum = $("input[name='maxNum']").val();
+        let password = $("input[name='password']").val();
+        let fullName = $("input[name='fullName']").val();
+        let avgScore = $("input[name='avgScore']").val();
+        let orderSum = $("input[name='orderSum']").val();
+        let stationId = $("input[name='stationId']").val();
+        let isAble = $("#isAble").val();
         $.ajax({
-            url: 'addStationInfo',
+            url: 'insertStaff',
             type: 'post',
             dataType: 'json',
             data: {
-                longitude: longitude,
-                latitude: latitude,
-                address: address,
-                stationName: stationName,
-                phone: phone,
-                maxNum: maxNum
+                password: password,
+                fullName: fullName,
+                avgScore: avgScore,
+                orderSum: orderSum,
+                stationId: stationId,
+                isAble: isAble
             },
             success: function (data) {
                 // console.log(data);
@@ -143,9 +146,6 @@ $(function () {
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
                 $('#myModal').modal('hide');
-            },
-            error: function () {
-
             }
         });
     });

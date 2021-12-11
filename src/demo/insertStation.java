@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/addStationInfo")
-public class addStationInfo extends HttpServlet {
+@WebServlet("/insertStation")
+public class insertStation extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override

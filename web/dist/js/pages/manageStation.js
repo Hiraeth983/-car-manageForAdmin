@@ -183,9 +183,6 @@ $(function () {
             let str = generateStr(data);
             // 将定义好的内容,写入到tbody标签中
             tb.innerHTML = str;
-        },
-        error: function () {
-
         }
     });
 
@@ -241,7 +238,7 @@ $(function () {
         let maxNum = $("input[name='maxNum']").val();
         let currentNum = $("input[name='currentNum']").val();
         $.ajax({
-            url: 'addStationInfo',
+            url: 'insertStation',
             type: 'post',
             dataType: 'json',
             data: {

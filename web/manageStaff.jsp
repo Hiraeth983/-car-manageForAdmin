@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -230,47 +231,57 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form class="form-horizontal" role="form"
-                                                      action="insertStation" method="post">
+                                                      action="insertStaff" method="post">
+
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点经度</label>
+                                                        <label class="col-sm-2 control-label">员工姓名</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control"
-                                                                   placeholder="请输入站点经度" name="longitude">
+                                                                   placeholder="请输入员工姓名" name="fullName">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点纬度</label>
+                                                        <label class="col-sm-2 control-label">密码</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control"
-                                                                   placeholder="请输入站点纬度" name="latitude">
+                                                                   placeholder="请输入密码" name="password" value="123456">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点名称</label>
+                                                        <label class="col-sm-2 control-label">平均评分</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入站点名称" name="stationName">
+                                                            <input class="form-control" value="0"
+                                                                   name="avgScore" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">站点地址</label>
+                                                        <label class="col-sm-2 control-label">总服务数</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入站点地址"
-                                                                   name="address">
+                                                            <input class="form-control" value="0"
+                                                                   name="orderSum" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">联系电话</label>
+                                                        <label class="col-sm-2 control-label">归属站号</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入联系电话"
-                                                                   name="phone">
+                                                            <input class="form-control" value="${stationId}"
+                                                                   name="stationId" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">最大容纳量</label>
+                                                        <label class="col-sm-2 control-label">资格证</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control" placeholder="请输入每日最大容纳量"
-                                                                   name="maxNum">
+                                                            <select class="selectpicker"
+                                                                    id="isAble"
+                                                                    data-style="btn-info"
+                                                                    title="请选择是否具有资格证">
+                                                                <option value="0">
+                                                                    无资格证
+                                                                </option>
+                                                                <option value="1">
+                                                                    持有资格证
+                                                                </option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -378,6 +389,8 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
+<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="dist/js/pages/manageStaff.js"></script>
 </body>
 </html>
