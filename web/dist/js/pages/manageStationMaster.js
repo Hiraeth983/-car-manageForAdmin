@@ -94,14 +94,13 @@ function check(obj) {
             stationId: obj.stationId.value
         },
         success: function (data) {
+            $(".modal").modal('hide');
+            $('.modal-backdrop').remove();//去掉遮罩层
             // console.log(data);
             let tb = document.getElementById('tb');
             let str = generateStr(data);
             // 将定义好的内容,写入到tbody标签中
             tb.innerHTML = str;
-            // console.log($('.modal'));
-            $(".modal").modal('hide');
-            $('.modal-backdrop').remove();//去掉遮罩层
         },
         error: function () {
 

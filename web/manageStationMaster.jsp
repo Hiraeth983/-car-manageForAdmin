@@ -218,7 +218,7 @@
                                                         <label class="col-sm-2 control-label">密码</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" value="123456"
-                                                                   placeholder="请输入密码" name="passowrd">
+                                                                   placeholder="请输入密码" name="password">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">

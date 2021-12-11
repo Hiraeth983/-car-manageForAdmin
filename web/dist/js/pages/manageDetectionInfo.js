@@ -257,13 +257,13 @@ $(function () {
                 staffName: staffName
             },
             success: function (data) {
+                $(".modal").modal('hide');
+                $('.modal-backdrop').remove();//去掉遮罩层
                 console.log(data);
                 let tb = document.getElementById('tb');
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
-                $(".modal").modal('hide');
-                $('.modal-backdrop').remove();//去掉遮罩层
             }
         });
         event.preventDefault();  // 阻止form表单的默认提交路径：action指定的路径
