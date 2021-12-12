@@ -129,10 +129,8 @@ function taskInit() {
     }
     // console.log(newList);
     $("#selectOrderId").append($(temp));
-    $("#selectOrderId").selectpicker("refresh");
-
     $("#selectStaff").append($(getStaffNameList()));
-    $("#selectStaff").selectpicker("refresh");
+    $("#selectOrderId").selectpicker("refresh");
 
 };
 
