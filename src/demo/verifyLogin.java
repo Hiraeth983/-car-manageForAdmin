@@ -30,7 +30,7 @@ public class verifyLogin extends HttpServlet {
                 AdminLog adminLog = ldi.getAdminLogByUserName(userName);
                 if (adminLog != null) {
                     request.getSession().setAttribute("stationId", adminLog.getStationId());
-                    response.sendRedirect("manageStaff.jsp");
+                    response.sendRedirect("stationInfo.jsp");
                 } else {
                     response.sendRedirect("error.jsp");
                 }
