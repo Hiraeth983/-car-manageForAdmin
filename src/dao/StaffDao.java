@@ -48,4 +48,13 @@ public interface StaffDao {
      * @throws Exception
      */
     Boolean deleteStaffByStaffId(String staffId) throws Exception;
+
+    /**
+     * 修改指定编号员工数据
+     *
+     * @param staff
+     * @return 修改是否成功
+     * @throws Exception
+     */
+    Boolean updateStaff(Staff staff) throws Exception;
 }

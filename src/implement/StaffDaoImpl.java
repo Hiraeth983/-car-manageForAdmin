@@ -165,4 +165,19 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
         pstmt.close();
         return flag;
     }
+
+    @Override
+    public Boolean updateStaff(Staff staff) throws Exception {
+        Connection conn = BaseDao.getConnection();
+        String sql = "update staff set password=?,isAble=? where staffId=?;";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, staff.getPassword());
+        pstmt.setInt(2, staff.getIsAble());
+        pstmt.setString(3, staff.getStaffId());
+
+        boolean flag = pstmt.executeUpdate() > 0;
+        conn.close();
+        pstmt.close();
+        return flag;
+    }
 }
