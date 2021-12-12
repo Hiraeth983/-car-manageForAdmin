@@ -1,26 +1,21 @@
 let recordList = [];
 let newList = [];
-let staffList = [];
 
-function getStaffNameList() {
-    let staffNameList = '';
-    $.ajax({
-        url: 'getStaffListByStationId',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            stationId: '1'
-        },
-        success: function (data) {
-            staffList = data;
-            // console.log(staffList);
-            for (let j = 0; j < data.length; j++) {
-                staffNameList += `<option value="` + data[j].fullName + `">` + data[j].fullName + `</option>`;
-            }
-            // console.log(staffName);
-        }
-    });
-    return staffNameList;
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 };
 
 // 生成模板
@@ -55,7 +50,7 @@ function generateStr(data) {
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal" role="form" onsubmit="return check(this)">
+                                    <form class="form-horizontal" role="form">
                                         <div class="form-group row">
                                             <label class="col-sm-2 control-label">单号</label>
                                             <div class="col-sm-10">
@@ -106,8 +101,7 @@ function generateStr(data) {
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="reset" class="btn btn-default">重置</button>
-                                            <button type="submit" class="btn btn-primary">分配</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                         </div>
                                     </form>
                                 </div>
@@ -119,48 +113,15 @@ function generateStr(data) {
     return str;
 };
 
-function taskInit() {
-    newList = recordList.filter(function (item) {
-        return item.process === '已申请';
-    });
-    let temp = '';
-    for (let j = 0; j < newList.length; j++) {
-        temp += `<option value="` + newList[j].orderId + `">` + newList[j].orderId + `</option>`;
-    }
-    // console.log(newList);
-    $("#selectOrderId").append($(temp));
-    $("#selectOrderId").selectpicker("refresh");
-
-    $("#selectStaff").append($(getStaffNameList()));
-    $("#selectStaff").selectpicker("refresh");
-
-};
-
-Date.prototype.Format = function (fmt) {
-    var o = {
-        "M+": this.getMonth() + 1, // 月份
-        "d+": this.getDate(), // 日
-        "h+": this.getHours(), // 小时
-        "m+": this.getMinutes(), // 分
-        "s+": this.getSeconds(), // 秒
-        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
-        "S": this.getMilliseconds() // 毫秒
-    };
-    if (/(y+)/.test(fmt))
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-};
-
 $(function () {
     $.ajaxSettings.async = false; // ajax同步处理
-    window.stepper = new Stepper($('.bs-stepper')[0]);
     $.ajax({
         url: 'getRecordList',
         type: 'post',
         dataType: 'json',
-        data: {},
+        data: {
+            stationId: stationId.isNull ? 1 : stationId
+        },
         success: function (data) {
             recordList = data;
             // console.log(recordList);
@@ -170,104 +131,68 @@ $(function () {
         }
     });
 
-    taskInit();
+    var beginTimeStore = '';
+    var endTimeStore = '';
+    $('#config-demo').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        linkedCalendars: true,
+        autoUpdateInput: false,
+        ranges: {
+            "昨天": [moment().subtract("days", 1), moment().subtract("days", 1)],
+            "7天前": [moment().subtract("days", 6), moment()],
+            "30天前": [moment().subtract("days", 29), moment()],
+            "这个月": [moment().startOf("month"), moment().endOf("month")],
+            "上个月": [moment().subtract("month", 1).startOf("month"), moment().subtract("month", 1).endOf("month")]
+        },
+        locale: {
+            format: 'YYYY-MM-DD',
+            separator: '~',
+            applyLabel: '确定',
+            cancelLabel: '取消',
+            fromLabel: '起始时间',
+            toLabel: '结束时间',
+            customRangeLabel: '自定义',
+            daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        }
+    }, function (start, end, label) {
+        beginTimeStore = start;
+        endTimeStore = end;
+        console.log(this.startDate.format(this.locale.format));
+        console.log(this.endDate.format(this.locale.format));
+        if (!this.startDate) {
+            this.element.val('');
+        } else {
+            this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
+        }
+    });
 
-    $('#refresh').click(function (e) {
-        $.ajax({
-            url: 'getRecordList',
-            type: 'post',
-            dataType: 'json',
-            data: {},
-            success: function (data) {
-                recordList = data;
-                // console.log(recordList);
-                let str = generateStr(data);
-                let tb = document.getElementById('tb');
-                tb.innerHTML = str;
-            }
-        });
-        e.preventDefault();
+
+    $('#history').click(function () {
+        let str = generateStr(recordList);
+        let tb = document.getElementById('tb');
+        tb.innerHTML = str;
+    });
+
+    $('#daily').click(function () {
+        let mydate = (new Date()).Format("yyyy-MM-dd");
+        newList = recordList.filter(item => item.checkTime >= mydate);
+        let str = generateStr(newList);
+        let tb = document.getElementById('tb');
+        tb.innerHTML = str;
     });
 
     $('#sub').click(function (e) {
-
-        let temp = $("input[name='carId']").val();
-        // console.log(temp);
-        $.ajax({
-            url: 'getRecordByCarId',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                carId: temp
-            },
-            success: function (data) {
-                recordList = data;
-                // console.log(recordList);
-                let str = generateStr(data);
-                let tb = document.getElementById('tb');
-                tb.innerHTML = str;
-            }
-        });
         e.preventDefault();
-    });
-
-    $("#selectOrderId").change(function () {
-        let orderId = $("#selectOrderId").val();
-        let obj = newList.find(item => item.orderId == orderId);
-        $("#idCard").val(obj.idCard);
-        $("#fullName").val(obj.fullName);
-        $("#carId").val(obj.carId);
-        $("#address").val(obj.address);
-        $("#orderTime").val(obj.orderTime);
-        $("#confirmOrderId").val(orderId);
-        $("#confirmIdCard").val(obj.idCard);
-        $("#confirmFullName").val(obj.fullName);
-        $("#confirmCarId").val(obj.carId);
-        $("#confirmAddress").val(obj.address);
-        $("#confirmOrderTime").val(obj.orderTime);
-    });
-
-    $('#selectCheckTime').change(function () {
-        let checkTime = $("#selectCheckTime").val();
-        let mydate = (new Date()).Format("yyyy-MM-dd");
-        $("#confirmCheckTime").val(mydate + ' ' + checkTime);
-    });
-
-    $('#selectStaff').change(function () {
-        let staffName = $("#selectStaff").val();
-        let obj = staffList.find(item => item.fullName == staffName);
-        $('#confirmStaffId').val(obj.staffId);
-        $('#confirmStaffName').val(staffName);
-        $('#staffId').val(obj.staffId);
-    });
-
-    $('#assignForm').submit(function (event) {
-        let orderId = $('#confirmOrderId').val();
-        let checkTime = $('#confirmCheckTime').val();
-        let staffId = $('#confirmStaffId').val();
-        let staffName = $('#confirmStaffName').val();
-        $.ajax({
-            url: 'assignTaskByOrderId',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                orderId: orderId,
-                checkTime: checkTime,
-                staffId: staffId,
-                staffName: staffName
-            },
-            success: function (data) {
-                $(".modal").modal('hide');
-                $('.modal-backdrop').remove();//去掉遮罩层
-                console.log(data);
-                let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-            }
-        });
-        event.preventDefault();  // 阻止form表单的默认提交路径：action指定的路径
-    });
-
+        let range = $('#config-demo').val();
+        let arr = range.split('~');
+        newList = recordList.filter(item => item.checkTime >= arr[0] && item.checkTime <= arr[1]);
+        console.log(arr);
+        console.log(newList);
+        let str = generateStr(newList);
+        let tb = document.getElementById('tb');
+        tb.innerHTML = str;
+    })
 
 });
