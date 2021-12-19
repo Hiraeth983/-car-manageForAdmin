@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.ApplicationDaoImpl;
 import implement.StationDaoImpl;
 import model.Application;
@@ -34,7 +35,11 @@ public class examineApplication extends HttpServlet {
             Boolean flag = applicationDao.examineApplication(app);
             if (flag) {
                 ArrayList<Application> applicationList = applicationDao.getApplicationListByStationId(stationId);
-                response.getWriter().print(JSONArray.fromObject(applicationList));
+                if (!applicationList.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(applicationList));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
             } else {
                 response.sendRedirect("error.jsp");
             }

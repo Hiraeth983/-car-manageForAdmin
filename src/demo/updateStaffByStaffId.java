@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.StaffDaoImpl;
 import implement.StationDaoImpl;
 import model.Staff;
@@ -35,7 +36,11 @@ public class updateStaffByStaffId extends HttpServlet {
             Boolean flag = sdi.updateStaff(staff);
             if (flag) {
                 ArrayList<Staff> list = sdi.getStaffListByStationId(stationId);
-                response.getWriter().print(JSONArray.fromObject(list));
+                if (!list.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(list));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
             } else {
                 response.sendRedirect("error.jsp");
             }

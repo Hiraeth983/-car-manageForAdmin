@@ -1,5 +1,6 @@
 let stationList = [];
 console.log(stationId);
+
 // 生成模板
 function generateStr(data) {
     // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
@@ -98,10 +99,16 @@ function clickDelete(staffId) {
         success: function (data) {
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
-            $(".selectpicker").selectpicker("refresh");
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+                $(".selectpicker").selectpicker("refresh");
+            }
         }
     });
 };
@@ -123,10 +130,17 @@ function check(obj) {
             $('.modal-backdrop').remove();//去掉遮罩层
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
-            $(".selectpicker").selectpicker("refresh");
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+                $(".selectpicker").selectpicker("refresh");
+            }
+
         }
     });
     // console.log(obj.phone.value);
@@ -144,10 +158,17 @@ $(function () {
         success: function (data) {
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
-            $(".selectpicker").selectpicker("refresh");
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+                $(".selectpicker").selectpicker("refresh");
+            }
+
         },
         error: function () {
 
@@ -167,10 +188,16 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                $(".selectpicker").selectpicker("refresh");
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                    $(".selectpicker").selectpicker("refresh");
+                }
             }
         });
         e.preventDefault();
@@ -188,10 +215,16 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                $(".selectpicker").selectpicker("refresh");
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                    $(".selectpicker").selectpicker("refresh");
+                }
             }
         });
     });
@@ -218,11 +251,18 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                $('#myModal').modal('hide');
-                $(".selectpicker").selectpicker("refresh");
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                    $('#myModal').modal('hide');
+                    $(".selectpicker").selectpicker("refresh");
+                }
+
             }
         });
     });

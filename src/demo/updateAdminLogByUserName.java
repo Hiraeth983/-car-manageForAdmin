@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.AdminLogDaoImpl;
 import implement.StationDaoImpl;
 import model.AdminLog;
@@ -35,7 +36,11 @@ public class updateAdminLogByUserName extends HttpServlet {
             Boolean flag = adi.updateAdminLogByUserName(adminLog);
             if (flag) {
                 ArrayList<AdminLog> adminLogList = adi.getAdminLogList();
-                response.getWriter().print(JSONArray.fromObject(adminLogList));
+                if (!adminLogList.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(adminLogList));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
             } else {
                 response.sendRedirect("error.jsp");
             }

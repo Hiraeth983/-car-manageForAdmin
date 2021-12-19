@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.StationDaoImpl;
 import model.Station;
 import net.sf.json.JSONArray;
@@ -27,7 +28,7 @@ public class getStationById extends HttpServlet {
             if (station != null) {
                 response.getWriter().print(JSONArray.fromObject(station));
             } else {
-                response.getWriter().print("暂无数据");
+                response.getWriter().print(JSON.toJSONString("暂无数据"));
             }
 
         } catch (Exception e) {

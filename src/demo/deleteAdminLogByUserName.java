@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.AdminLogDaoImpl;
 import model.AdminLog;
 import net.sf.json.JSONArray;
@@ -27,7 +28,12 @@ public class deleteAdminLogByUserName extends HttpServlet {
             Boolean flag = adi.deleteAdminLogByUserName(userName);
             if (flag) {
                 ArrayList<AdminLog> adminLogList = adi.getAdminLogList();
-                response.getWriter().print(JSONArray.fromObject(adminLogList));
+                if (!adminLogList.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(adminLogList));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
+
             } else {
                 response.sendRedirect("error.jsp");
             }

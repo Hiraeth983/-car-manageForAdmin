@@ -1,5 +1,6 @@
 package demo;
 
+import com.alibaba.fastjson.JSON;
 import implement.RecordDaoImpl;
 import model.Record;
 import net.sf.json.JSONArray;
@@ -35,7 +36,12 @@ public class assignTaskByOrderId extends HttpServlet {
             Boolean flag = rdi.assignTaskByOrderId(record);
             if (flag) {
                 ArrayList<Record> list = rdi.getRecordList();
-                response.getWriter().print(JSONArray.fromObject(list));
+                if (!list.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(list));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
+
             } else {
                 response.sendRedirect("error.jsp");
             }
