@@ -2,14 +2,14 @@ package implement;
 
 import dao.StationDao;
 import model.Station;
-import utils.BaseDao;
+import utils.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class StationDaoImpl extends BaseDao implements StationDao {
+public class StationDaoImpl extends DataBaseConnection implements StationDao {
 
     /**
      * 查询所有检测站数据
@@ -20,7 +20,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
     @Override
     public ArrayList<Station> getStationList() throws Exception {
         ArrayList<Station> siteList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM station";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet result = pstmt.executeQuery();
@@ -36,7 +36,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
             site.setCurrentNum(result.getInt(8));
             siteList.add(site);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!siteList.isEmpty()) {
             return siteList;
         } else {
@@ -54,7 +54,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
     @Override
     public Station selectStationById(String stationId) throws Exception {
         Station station = null;
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM station where stationId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, stationId);
@@ -70,7 +70,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
             station.setMaxNum(result.getInt(7));
             station.setCurrentNum(result.getInt(8));
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         return station;
     }
 
@@ -83,7 +83,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
      */
     @Override
     public boolean updateStation(Station station) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "update station set latitude=?,longitude=?,address=?,stationName=?,phone=?,maxNum=?,currentNum=? where stationId=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setFloat(1, station.getLatitude());
@@ -110,7 +110,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
      */
     @Override
     public boolean deleteStationById(String stationId) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "delete from station where stationId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, stationId);
@@ -130,7 +130,7 @@ public class StationDaoImpl extends BaseDao implements StationDao {
      */
     @Override
     public boolean insertStation(Station station) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
 
         // 获取最大编号，自动加一生成最新编号
         int stationId = 0;

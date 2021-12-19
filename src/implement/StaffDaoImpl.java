@@ -2,14 +2,14 @@ package implement;
 
 import dao.StaffDao;
 import model.Staff;
-import utils.BaseDao;
+import utils.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class StaffDaoImpl extends BaseDao implements StaffDao {
+public class StaffDaoImpl extends DataBaseConnection implements StaffDao {
     /**
      * 查询所有员工数据
      *
@@ -19,7 +19,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
     @Override
     public ArrayList<Staff> getStaffList() throws Exception {
         ArrayList<Staff> staffList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM staff";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet result = pstmt.executeQuery();
@@ -35,7 +35,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
 
             staffList.add(staff);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!staffList.isEmpty()) {
             return staffList;
         } else {
@@ -53,7 +53,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
     @Override
     public ArrayList<Staff> getStaffListByStationId(String stationId) throws Exception {
         ArrayList<Staff> staffList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM staff where stationId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, stationId);
@@ -70,7 +70,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
 
             staffList.add(staff);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!staffList.isEmpty()) {
             return staffList;
         } else {
@@ -87,7 +87,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
      */
     @Override
     public Boolean insertStaff(Staff staff) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
 
         // 获取最大编号，自动加一生成最新编号
         int staffId = 0;
@@ -126,7 +126,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
     @Override
     public Staff getStaffByStaffId(String staffId) throws Exception {
         ArrayList<Staff> staffList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM staff where staffId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, staffId);
@@ -142,7 +142,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
             staff.setStationId(result.getString(6));
             staff.setIsAble(result.getInt(7));
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         return staff;
     }
 
@@ -155,7 +155,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
      */
     @Override
     public Boolean deleteStaffByStaffId(String staffId) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "delete from staff where staffId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, staffId);
@@ -168,7 +168,7 @@ public class StaffDaoImpl extends BaseDao implements StaffDao {
 
     @Override
     public Boolean updateStaff(Staff staff) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "update staff set password=?,isAble=? where staffId=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, staff.getPassword());

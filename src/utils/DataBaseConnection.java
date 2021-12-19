@@ -2,7 +2,7 @@ package utils;
 
 import java.sql.*;
 
-public class BaseDao {
+public class DataBaseConnection {
     private static String driver="com.mysql.jdbc.Driver";
     private static String url="jdbc:mysql://127.0.0.1:3306/car?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull";
     private static String user="root";
@@ -49,7 +49,7 @@ public class BaseDao {
             e.printStackTrace(); // 处理SQLException异常
         } finally {
             try {
-                BaseDao.closeAll(conn, pstmt, null);
+                DataBaseConnection.closeAll(conn, pstmt, null);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -2,14 +2,14 @@ package implement;
 
 import dao.AdminLogDao;
 import model.AdminLog;
-import utils.BaseDao;
+import utils.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
+public class AdminLogDaoImpl extends DataBaseConnection implements AdminLogDao {
 
     /**
      * 登录验证
@@ -21,7 +21,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
     @Override
     public AdminLog getAdminLogByUserName(String userName) throws Exception {
         AdminLog adminLog = null;
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM adminlog where binary userName=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, userName);
@@ -32,7 +32,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
             adminLog.setPassword(result.getString(2));
             adminLog.setStationId(result.getString(3));
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         return adminLog;
     }
 
@@ -46,7 +46,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
     @Override
     public boolean searchUserName(String userName) throws Exception {
         boolean flag = false;
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT count(*) FROM adminlog where binary userName=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, userName);
@@ -54,7 +54,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
         while (result.next()) {
             flag = Integer.parseInt(result.getString(1)) > 0;
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         return flag;
     }
 
@@ -67,7 +67,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
     @Override
     public ArrayList<AdminLog> getAdminLogList() throws Exception {
         ArrayList<AdminLog> adminLogArrayList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM adminlog";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet result = pstmt.executeQuery();
@@ -79,7 +79,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
 
             adminLogArrayList.add(adminLog);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!adminLogArrayList.isEmpty()) {
             return adminLogArrayList;
         } else {
@@ -97,7 +97,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
     @Override
     public ArrayList<AdminLog> getAdminLogByStationId(String stationId) throws Exception {
         ArrayList<AdminLog> adminLogArrayList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM adminlog where stationId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, stationId);
@@ -110,7 +110,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
 
             adminLogArrayList.add(adminLog);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!adminLogArrayList.isEmpty()) {
             return adminLogArrayList;
         } else {
@@ -127,7 +127,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
      */
     @Override
     public Boolean insertAdminLog(AdminLog adminLog) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "insert into adminlog values(?,?,?)";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt = conn.prepareStatement(sql);
@@ -149,7 +149,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
      */
     @Override
     public Boolean deleteAdminLogByUserName(String userName) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "delete from adminlog where binary userName=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, userName);
@@ -168,7 +168,7 @@ public class AdminLogDaoImpl extends BaseDao implements AdminLogDao {
      */
     @Override
     public Boolean updateAdminLogByUserName(AdminLog adminLog) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "update adminlog set password=?,stationId=? where userName=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, adminLog.getPassword());

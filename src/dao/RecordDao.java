@@ -40,4 +40,70 @@ public interface RecordDao {
      * @throws Exception
      */
     ArrayList<Record> getRecordByCarId(String carId) throws Exception;
+
+    /**
+     * 统计某一检测站当日检测数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    int countDailyDetectionNum(String stationId) throws Exception;
+
+    /**
+     * 统计某一检测站当日检测异常数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    int countDailyExceptionNum(String stationId) throws Exception;
+
+    /**
+     * 统计某一检测站历史检测数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    int countHistoryDetectionNum(String stationId) throws Exception;
+
+    /**
+     * 统计某一检测站历史检测异常数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    int countHistoryExceptionNum(String stationId) throws Exception;
+
+    /**
+     * 统计某一检测站某一天已申请数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    int countAppliedNum(String stationId, String date) throws Exception;
+
+    /**
+     * 统计某一检测站某一天已分配数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    int countAssignedNum(String stationId, String date) throws Exception;
+
+    /**
+     * 统计某一检测站某一天已完成数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    int countCompletedNum(String stationId, String date) throws Exception;
 }

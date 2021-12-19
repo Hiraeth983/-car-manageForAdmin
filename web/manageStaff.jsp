@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>检测站管理</title>
+    <title>员工信息管理</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -157,43 +157,66 @@
                     <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="allStationJump-query" class="nav-link">
+                        <a href="stationInfo.jsp" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                首页
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="stationSelect.jsp" class="nav-link">
-                            <i class="nav-icon fas fa-search"></i>
-                            <p>
-                                检测站选择
+                                检测站信息
                             </p>
                         </a>
                     </li>
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-cog"></i>
+                        <a href="manageStaff.jsp" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
                             <p>
-                                系统设置
-                                <i class="right fas fa-angle-left"></i>
+                                员工信息管理
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="queryStation" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>检测站管理</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="contact.jsp" class="nav-link">
-                            <i class="nav-icon fas fa-search"></i>
+                        <a href="recordInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                联系我们
+                                车辆检测记录
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manageDetectionInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                分配员工检测任务
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="examineApplication.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                审核调度申请
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="countComplaintInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                统计评价信息
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="countDetectionInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                统计检测记录
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="examineComplaint.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                审批车主投诉
                             </p>
                         </a>
                     </li>

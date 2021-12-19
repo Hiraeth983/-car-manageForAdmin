@@ -2,23 +2,25 @@ package implement;
 
 import dao.RecordDao;
 import model.Record;
-import utils.BaseDao;
+import utils.DataBaseConnection;
+import utils.DateTools;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class RecordDaoImpl extends BaseDao implements RecordDao {
+public class RecordDaoImpl extends DataBaseConnection implements RecordDao {
     /**
      * 查询所有检测数据
+     *
      * @return 检测数据数组
      * @throws Exception
      */
     @Override
     public ArrayList<Record> getRecordList() throws Exception {
         ArrayList<Record> recordList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM record";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet result = pstmt.executeQuery();
@@ -31,22 +33,22 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             record.setAddress(result.getString(5).trim());
             record.setOrderTime(result.getString(6).trim());
             String checkTime = "待定";
-            if(result.getString(7) != null){
+            if (result.getString(7) != null) {
                 checkTime = result.getString(7);
             }
             record.setCheckTime(checkTime);
             String re = "待定";
-            if(result.getString(8) != null){
+            if (result.getString(8) != null) {
                 re = result.getString(8);
             }
             record.setResult(re);
             String staffName = "待定";
-            if(result.getString(9) != null){
+            if (result.getString(9) != null) {
                 staffName = result.getString(9);
             }
             record.setStaffName(staffName);
             String staffId = "待定";
-            if(result.getString(10) != null){
+            if (result.getString(10) != null) {
                 staffId = result.getString(10);
             }
             record.setStaffId(staffId);
@@ -55,7 +57,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             record.setAvailable(result.getInt(13));
             recordList.add(record);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!recordList.isEmpty()) {
             return recordList;
         } else {
@@ -65,6 +67,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 
     /**
      * 查询某一检测数据
+     *
      * @param order
      * @return 指定编号检测数据
      * @throws Exception
@@ -72,7 +75,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
     @Override
     public Record getRecordById(String order) throws Exception {
         Record record = null;
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM record where order=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, order);
@@ -93,7 +96,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             record.setProcess(result.getString(12).trim());
             record.setAvailable(result.getInt(13));
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         return record;
     }
 
@@ -106,7 +109,7 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
      */
     @Override
     public Boolean assignTaskByOrderId(Record record) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "update record set checkTime=?,staffName=?,staffId=?,process=? where orderId=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, record.getCheckTime());
@@ -131,10 +134,10 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
     @Override
     public ArrayList<Record> getRecordByCarId(String carId) throws Exception {
         ArrayList<Record> recordList = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "SELECT * FROM record where binary carId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1,carId);
+        pstmt.setString(1, carId);
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
             Record record = new Record();
@@ -145,22 +148,22 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             record.setAddress(result.getString(5).trim());
             record.setOrderTime(result.getString(6).trim());
             String checkTime = "待定";
-            if(result.getString(7) != null){
+            if (result.getString(7) != null) {
                 checkTime = result.getString(7);
             }
             record.setCheckTime(checkTime);
             String re = "待定";
-            if(result.getString(8) != null){
+            if (result.getString(8) != null) {
                 re = result.getString(8);
             }
             record.setResult(re);
             String staffName = "待定";
-            if(result.getString(9) != null){
+            if (result.getString(9) != null) {
                 staffName = result.getString(9);
             }
             record.setStaffName(staffName);
             String staffId = "待定";
-            if(result.getString(10) != null){
+            if (result.getString(10) != null) {
                 staffId = result.getString(10);
             }
             record.setStaffId(staffId);
@@ -169,11 +172,178 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
             record.setAvailable(result.getInt(13));
             recordList.add(record);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!recordList.isEmpty()) {
             return recordList;
         } else {
             return null;
         }
+    }
+
+    /**
+     * 统计某一检测站当日检测数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countDailyDetectionNum(String stationId) throws Exception {
+        int count = 0;
+        String myDate = DateTools.getPastDate(0);
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已完成' and checkTime>=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        pstmt.setString(2, myDate);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站当日检测异常数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countDailyExceptionNum(String stationId) throws Exception {
+        int count = 0;
+        String myDate = DateTools.getPastDate(0);
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已完成' and checkTime>=? and result='异常'";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        pstmt.setString(2, myDate);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站历史检测数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countHistoryDetectionNum(String stationId) throws Exception {
+        int count = 0;
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已完成'";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站历史检测异常数量
+     *
+     * @param stationId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countHistoryExceptionNum(String stationId) throws Exception {
+        int count = 0;
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已完成' and result='异常'";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站某一天已申请数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countAppliedNum(String stationId, String date) throws Exception {
+        int count = 0;
+        date += "%";  //模糊匹配
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已申请' and orderTime like ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        pstmt.setString(2, date);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站某一天已分配数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countAssignedNum(String stationId, String date) throws Exception {
+        int count = 0;
+        date += "%";  //模糊匹配
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已分配' and orderTime like ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        pstmt.setString(2, date);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
+    }
+
+    /**
+     * 统计某一检测站某一天已完成数量
+     *
+     * @param stationId
+     * @param date
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countCompletedNum(String stationId, String date) throws Exception {
+        int count = 0;
+        date += "%";  //模糊匹配
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM record where stationId=? and process='已完成' and orderTime like ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        pstmt.setString(2, date);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
     }
 }

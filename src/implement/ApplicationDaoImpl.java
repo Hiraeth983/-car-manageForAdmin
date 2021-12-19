@@ -2,15 +2,14 @@ package implement;
 
 import dao.ApplicationDao;
 import model.Application;
-import model.Station;
-import utils.BaseDao;
+import utils.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class ApplicationDaoImpl extends BaseDao implements ApplicationDao {
+public class ApplicationDaoImpl extends DataBaseConnection implements ApplicationDao {
 
     /**
      * 获取某一站点申请调度信息列表
@@ -21,7 +20,7 @@ public class ApplicationDaoImpl extends BaseDao implements ApplicationDao {
     @Override
     public ArrayList<Application> getApplicationListByStationId(String stationId) throws Exception {
         ArrayList<Application> applications = new ArrayList<>();
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "select application.orderId,application.submitTime,oStaff.oStaffId,oStaff.fullName,nStaff.nStaffId,nStaff.fullName,reason,state\n" +
                 "from application,\n" +
                 "\t(select application.orderId,application.oStaffId,staff.fullName,staff.stationId\n" +
@@ -46,7 +45,7 @@ public class ApplicationDaoImpl extends BaseDao implements ApplicationDao {
 
             applications.add(application);
         }
-        BaseDao.closeAll(conn, pstmt, result);
+        DataBaseConnection.closeAll(conn, pstmt, result);
         if (!applications.isEmpty()) {
             return applications;
         } else {
@@ -62,7 +61,7 @@ public class ApplicationDaoImpl extends BaseDao implements ApplicationDao {
      */
     @Override
     public Boolean examineApplication(Application app) throws Exception {
-        Connection conn = BaseDao.getConnection();
+        Connection conn = DataBaseConnection.getConnection();
         String sql = "update application set state=? where orderId=?;";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, app.getState());
