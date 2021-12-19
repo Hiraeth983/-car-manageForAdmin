@@ -20,10 +20,11 @@ public class getStaffByStaffId extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String staffId = request.getParameter("staffId");
+        String stationId = request.getParameter("stationId");
         StaffDaoImpl sdi = new StaffDaoImpl();
         try {
             Staff staff = null;
-            staff = sdi.getStaffByStaffId(staffId);
+            staff = sdi.getStaffByStaffId(staffId,stationId);
             if (staff != null) {
                 response.getWriter().print(JSONArray.fromObject(staff));
             } else {

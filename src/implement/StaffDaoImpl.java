@@ -124,12 +124,12 @@ public class StaffDaoImpl extends DataBaseConnection implements StaffDao {
      * @throws Exception
      */
     @Override
-    public Staff getStaffByStaffId(String staffId) throws Exception {
-        ArrayList<Staff> staffList = new ArrayList<>();
+    public Staff getStaffByStaffId(String staffId,String stationId) throws Exception {
         Connection conn = DataBaseConnection.getConnection();
-        String sql = "SELECT * FROM staff where staffId=?";
+        String sql = "SELECT * FROM staff where staffId=? and stationId=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, staffId);
+        pstmt.setString(2, stationId);
         ResultSet result = pstmt.executeQuery();
         Staff staff = null;
         while (result.next()) {

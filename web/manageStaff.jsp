@@ -414,6 +414,9 @@
 <script src="dist/js/adminlte.js"></script>
 <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <script src="plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+<script type="text/javascript">
+    let stationId = "${sessionScope.stationId}";
+</script>
 <script src="dist/js/pages/manageStaff.js"></script>
 </body>
 </html>

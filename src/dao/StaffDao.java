@@ -38,7 +38,7 @@ public interface StaffDao {
      * @return 返回指定编号员工数据
      * @throws Exception
      */
-    Staff getStaffByStaffId(String staffId) throws Exception;
+    Staff getStaffByStaffId(String staffId,String stationId) throws Exception;
 
     /**
      * 删除指定编号员工数据

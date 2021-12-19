@@ -1,5 +1,5 @@
 let stationList = [];
-
+console.log(stationId);
 // 生成模板
 function generateStr(data) {
     // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
@@ -64,9 +64,9 @@ function generateStr(data) {
                                             <div class="col-sm-10">
                                                 <select class="selectpicker" name="isAble" data-style="btn-info" title="请选择是否具有资格证">`;
         if (data[i]['isAble'] === 0) {
-            str+=`<option value="0" selected>无资格证</option><option value="1">持有资格证</option>`;
-        }else if (data[i]['isAble'] === 1){
-            str+=`<option value="0">无资格证</option><option value="1" selected>持有资格证</option>`;
+            str += `<option value="0" selected>无资格证</option><option value="1">持有资格证</option>`;
+        } else if (data[i]['isAble'] === 1) {
+            str += `<option value="0">无资格证</option><option value="1" selected>持有资格证</option>`;
         }
         str += `</select>
                                             </div>
@@ -139,7 +139,7 @@ $(function () {
         type: 'post',
         dataType: 'json',
         data: {
-            stationId: $("input[name='stationId']").val()
+            stationId: stationId
         },
         success: function (data) {
             // console.log(data);
@@ -155,14 +155,14 @@ $(function () {
     });
     $('#sub').click(function (e) {
 
-        let temp = $("input[name='staffId']").val();
-        // console.log(temp);
+        let staffId = $("input[name='staffId']").val();
         $.ajax({
             url: 'getStaffByStaffId',
             type: 'post',
             dataType: 'json',
             data: {
-                staffId: temp
+                staffId: staffId,
+                stationId: stationId
             },
             success: function (data) {
                 // console.log(data);
@@ -183,7 +183,7 @@ $(function () {
             type: 'post',
             dataType: 'json',
             data: {
-                stationId: $("input[name='stationId']").val()
+                stationId: stationId
             },
             success: function (data) {
                 // console.log(data);
@@ -202,7 +202,6 @@ $(function () {
         let fullName = $("input[name='fullName']").val();
         let avgScore = $("input[name='avgScore']").val();
         let orderSum = $("input[name='orderSum']").val();
-        let stationId = $("input[name='stationId']").val();
         let isAble = $("#isAble").val();
         $.ajax({
             url: 'insertStaff',
