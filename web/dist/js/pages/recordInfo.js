@@ -125,9 +125,16 @@ $(function () {
         success: function (data) {
             recordList = data;
             // console.log(recordList);
-            let str = generateStr(data);
             let tb = document.getElementById('tb');
-            tb.innerHTML = str;
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+            }
         }
     });
 

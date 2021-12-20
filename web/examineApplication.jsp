@@ -454,7 +454,7 @@
                                                                                 Previous
                                                                             </button>
                                                                             <button id="examineForm"
-                                                                                    class="btn btn-primary">分配任务
+                                                                                    class="btn btn-primary">提交
                                                                             </button>
                                                                         </div>
                                                                     </div>

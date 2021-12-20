@@ -122,9 +122,16 @@ function clickDelete(stationId) {
         success: function (data) {
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+            }
+
         },
         error: function () {
 
@@ -153,10 +160,17 @@ function check(obj) {
             $('.modal-backdrop').remove();//去掉遮罩层
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
-            // console.log($('.modal'));
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+                // console.log($('.modal'));
+            }
+
         }
     });
     // console.log(obj.phone.value);
@@ -180,9 +194,16 @@ $(function () {
         success: function (data) {
             // console.log(data);
             let tb = document.getElementById('tb');
-            let str = generateStr(data);
-            // 将定义好的内容,写入到tbody标签中
-            tb.innerHTML = str;
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+            }
+
         }
     });
 
@@ -200,9 +221,16 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                }
+
             },
             error: function () {
 
@@ -221,9 +249,16 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                }
+
             }
         });
     });
@@ -253,10 +288,17 @@ $(function () {
             success: function (data) {
                 // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
-                $('#myModal').modal('hide');
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                    $('#myModal').modal('hide');
+                }
+
             }
         });
     });

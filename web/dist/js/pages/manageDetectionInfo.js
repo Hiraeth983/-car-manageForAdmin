@@ -13,13 +13,14 @@ function getStaffNameList() {
         },
         success: function (data) {
             staffList = data;
-            // console.log(staffList);
+            console.log(staffList);
             for (let j = 0; j < data.length; j++) {
-                staffNameList += `<option value="` + data[j].fullName + `">` + data[j].fullName + `</option>`;
+                staffNameList += `<option value='` + data[j].fullName + `'>` + data[j].fullName + `</option>`;
             }
             // console.log(staffName);
         }
     });
+    console.log(staffNameList);
     return staffNameList;
 };
 
@@ -105,10 +106,6 @@ function generateStr(data) {
                                                        name="available" disabled>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="reset" class="btn btn-default">重置</button>
-                                            <button type="submit" class="btn btn-primary">分配</button>
-                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -129,7 +126,9 @@ function taskInit() {
     }
     // console.log(newList);
     $("#selectOrderId").append($(temp));
-    $("#selectStaff").append($(getStaffNameList()));
+    let staffNameList = getStaffNameList();
+    $("#selectStaff").append($(staffNameList));
+    $("#selectStaff").selectpicker("refresh");
     $("#selectOrderId").selectpicker("refresh");
 
 };
@@ -154,6 +153,7 @@ Date.prototype.Format = function (fmt) {
 $(function () {
     $.ajaxSettings.async = false; // ajax同步处理
     window.stepper = new Stepper($('.bs-stepper')[0]);
+
     $.ajax({
         url: 'getRecordList',
         type: 'post',
@@ -162,9 +162,16 @@ $(function () {
         success: function (data) {
             recordList = data;
             // console.log(recordList);
-            let str = generateStr(data);
             let tb = document.getElementById('tb');
-            tb.innerHTML = str;
+            if(data === '暂无数据'){
+                tb.innerHTML = '';
+                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $(".tips").show();
+            }else{
+                let str = generateStr(data);
+                // 将定义好的内容,写入到tbody标签中
+                tb.innerHTML = str;
+            }
         }
     });
 
@@ -179,9 +186,16 @@ $(function () {
             success: function (data) {
                 recordList = data;
                 // console.log(recordList);
-                let str = generateStr(data);
                 let tb = document.getElementById('tb');
-                tb.innerHTML = str;
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                }
             }
         });
         e.preventDefault();
@@ -201,9 +215,16 @@ $(function () {
             success: function (data) {
                 recordList = data;
                 // console.log(recordList);
-                let str = generateStr(data);
                 let tb = document.getElementById('tb');
-                tb.innerHTML = str;
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                }
             }
         });
         e.preventDefault();
@@ -257,11 +278,17 @@ $(function () {
             success: function (data) {
                 $(".modal").modal('hide');
                 $('.modal-backdrop').remove();//去掉遮罩层
-                console.log(data);
+                // console.log(data);
                 let tb = document.getElementById('tb');
-                let str = generateStr(data);
-                // 将定义好的内容,写入到tbody标签中
-                tb.innerHTML = str;
+                if(data === '暂无数据'){
+                    tb.innerHTML = '';
+                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $(".tips").show();
+                }else{
+                    let str = generateStr(data);
+                    // 将定义好的内容,写入到tbody标签中
+                    tb.innerHTML = str;
+                }
             }
         });
         event.preventDefault();  // 阻止form表单的默认提交路径：action指定的路径
