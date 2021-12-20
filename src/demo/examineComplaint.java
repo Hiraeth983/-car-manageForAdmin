@@ -1,8 +1,8 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import implement.RecordDaoImpl;
-import model.Record;
+import implement.ComplaintDaoImpl;
+import model.Complaint;
 import net.sf.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -13,25 +13,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/getRecordByCarId")
-public class getRecordByCarId extends HttpServlet {
+@WebServlet("/examineComplaint")
+public class examineComplaint extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String carId = request.getParameter("carId");
+        String orderId = request.getParameter("orderId");
+        String result = request.getParameter("result");
         String stationId = request.getParameter("stationId");
-        RecordDaoImpl rdi = new RecordDaoImpl();
+        stationId = "".equals(stationId) ? "1" : stationId;
+        ComplaintDaoImpl complaintDao = new ComplaintDaoImpl();
         try {
-
-            ArrayList<Record> recordList = rdi.getRecordByCarId(carId);
-            if (!recordList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(recordList));
+            Complaint complaint = new Complaint();
+            complaint.setOrderId(orderId);
+            complaint.setResult(result);
+            Boolean flag = complaintDao.examineComplaint(complaint);
+            if (flag) {
+                ArrayList<Complaint> complaintList = complaintDao.getComplaintListByStationId(stationId);
+                if (!complaintList.isEmpty()){
+                    response.getWriter().print(JSONArray.fromObject(complaintList));
+                }else{
+                    response.getWriter().print(JSON.toJSONString("暂无数据"));
+                }
             } else {
-                response.getWriter().print(JSON.toJSONString("暂无数据"));
+                response.sendRedirect("error.jsp");
             }
 
         } catch (Exception e) {

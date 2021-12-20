@@ -49,7 +49,7 @@ public class ApplicationDaoImpl extends DataBaseConnection implements Applicatio
         if (!applications.isEmpty()) {
             return applications;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 

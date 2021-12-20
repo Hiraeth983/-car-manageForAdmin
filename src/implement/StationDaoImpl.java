@@ -40,7 +40,7 @@ public class StationDaoImpl extends DataBaseConnection implements StationDao {
         if (!siteList.isEmpty()) {
             return siteList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 

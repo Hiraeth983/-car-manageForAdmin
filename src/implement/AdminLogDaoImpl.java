@@ -83,7 +83,7 @@ public class AdminLogDaoImpl extends DataBaseConnection implements AdminLogDao {
         if (!adminLogArrayList.isEmpty()) {
             return adminLogArrayList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -114,7 +114,7 @@ public class AdminLogDaoImpl extends DataBaseConnection implements AdminLogDao {
         if (!adminLogArrayList.isEmpty()) {
             return adminLogArrayList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -162,6 +162,7 @@ public class AdminLogDaoImpl extends DataBaseConnection implements AdminLogDao {
 
     /**
      * 修改指定用户名的用户数据
+     *
      * @param adminLog
      * @return 修改是否成功
      * @throws Exception
@@ -179,5 +180,28 @@ public class AdminLogDaoImpl extends DataBaseConnection implements AdminLogDao {
         conn.close();
         pstmt.close();
         return flag;
+    }
+
+    /**
+     * 获取指定检测站站长人数
+     *
+     * @param stationId
+     * @return 人数
+     * @throws Exception
+     */
+    @Override
+    public int getAdminNumByStationId(String stationId) throws Exception {
+        int count = 0;
+        ArrayList<AdminLog> adminLogArrayList = new ArrayList<>();
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "SELECT count(*) FROM adminlog where stationId=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            count = result.getInt(1);
+        }
+        DataBaseConnection.closeAll(conn, pstmt, result);
+        return count;
     }
 }

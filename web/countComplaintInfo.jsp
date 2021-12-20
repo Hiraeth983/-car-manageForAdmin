@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 李龙
-  Date: 2021/12/10
-  Time: 19:01
+  Date: 2021/12/12
+  Time: 23:08
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8"
@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>站长信息管理</title>
+    <title>统计评价信息</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,20 +25,14 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet"
+          href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-    <link rel="stylesheet" href="plugins/bootstrapValidate/css/bootstrapValidator.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -133,7 +127,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">尊敬的<strong>平台管理员</strong>，您好！</a>
+                    <a href="#" class="d-block">尊敬的<strong>站长</strong>，您好！</a>
                 </div>
             </div>
 
@@ -157,18 +151,66 @@
                     <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="manageStation.jsp" class="nav-link">
+                        <a href="stationInfo.jsp" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                检测站管理
+                                检测站信息
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manageStaff.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                员工信息管理
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="recordInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-copy"></i>
+                            <p>
+                                车辆检测记录
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manageDetectionInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                分配员工检测任务
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="examineApplication.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                审核调度申请
                             </p>
                         </a>
                     </li>
                     <li class="nav-item menu-open">
-                        <a href="manageStationMaster.jsp" class="nav-link active">
-                            <i class="nav-icon fas fa-search"></i>
+                        <a href="countComplaintInfo.jsp" class="nav-link active">
+                            <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
-                                站长信息管理
+                                统计评价信息
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="countDetectionInfo.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                统计检测记录
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="examineComplaint.jsp" class="nav-link">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                审批车主投诉
                             </p>
                         </a>
                     </li>
@@ -181,107 +223,55 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>统计评价信息</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
+                            <li class="breadcrumb-item active">统计评价信息</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div>&nbsp;</div>
-                <h3 class="text-dark mb-4">站长信息管理</h3>
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6 text-nowrap">
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 18px;"
-                                        data-toggle="modal" data-target="#myModal">添加
-                                </button>
-                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title text-left" id="myModalLabel">添加</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">
-                                                    &times;
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal" role="form" id="addForm"
-                                                      action="insertStationMaster" method="post">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">用户名</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="userName"
-                                                                   placeholder="请输入用户名" name="userName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">密码</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" value="123456"
-                                                                   placeholder="请输入密码" name="password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">所属站号</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入所属站号" name="stationId">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="reset" class="btn btn-default">重置</button>
-                                                        <button type="submit" class="btn btn-primary" id="addSubmit">
-                                                            添加
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal -->
-                                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0">
 
-                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 10px;"
-                                        id="refresh">刷新
-                                </button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                    <form class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                        <div class="input-group"><input
-                                                class="bg-light form-control form-control-sm border-0 small" type="text"
-                                                placeholder="站点编号搜索..." name="stationIdForSearch">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary py-0" type="submit" id="sub"><i
-                                                        class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
+                            <div class="card-body">
+                                <div class="chart tab-pane" id="chart"
+                                     style="position: relative; height: 400px;width: 600px;">
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive table mt-2" id="dataTable" role="grid"
-                             aria-describedby="dataTable_info">
-                            <table class="table my-0" id="dataTable1">
-                                <thead>
-                                <tr>
-                                    <th style="text-align: center">用户名</th>
-                                    <th style="text-align: center">密码</th>
-                                    <th style="text-align: center">站点编号</th>
-                                    <th style="text-align: center">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tb">
+                        <!-- /.card -->
 
-                                </tbody>
-                                <tfoot>
-                                <tr></tr>
-                                </tfoot>
-                            </table>
-                            <div id="noData">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0">
+
+                            </div>
+                            <div class="card-body">
+                                <div class="chart tab-pane" id="chart2"
+                                     style="position: relative; height: 400px;">
+
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                        </div>
+                        <!-- /.card -->
+
+
                     </div>
                 </div>
             </div>
@@ -311,23 +301,18 @@
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugins/bootstrapValidate/js/bootstrapValidator.min.js"></script>
-<script src="dist/js/pages/manageStationMaster.js"></script>
+<script src="plugins/bootstrap/js/echarts.js"></script>
+<script type="text/javascript">
+    let stationId = "${sessionScope.stationId}";
+</script>
+<script src="dist/js/pages/countComplaintInfo.js"></script>
 </body>
 </html>
+</html>
+

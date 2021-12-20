@@ -1,8 +1,10 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import implement.RecordDaoImpl;
-import model.Record;
+import implement.ApplicationDaoImpl;
+import implement.ComplaintDaoImpl;
+import model.Application;
+import model.Complaint;
 import net.sf.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -13,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/getRecordByCarId")
-public class getRecordByCarId extends HttpServlet {
+@WebServlet("/getComplaintListByStationId")
+public class getComplaintListByStationId extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request,
@@ -22,14 +24,13 @@ public class getRecordByCarId extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String carId = request.getParameter("carId");
         String stationId = request.getParameter("stationId");
-        RecordDaoImpl rdi = new RecordDaoImpl();
+        ComplaintDaoImpl complaintDao = new ComplaintDaoImpl();
         try {
 
-            ArrayList<Record> recordList = rdi.getRecordByCarId(carId);
-            if (!recordList.isEmpty()) {
-                response.getWriter().print(JSONArray.fromObject(recordList));
+            ArrayList<Complaint> complaintList = complaintDao.getComplaintListByStationId(stationId);
+            if (!complaintList.isEmpty() ) {
+                response.getWriter().print(JSONArray.fromObject(complaintList));
             } else {
                 response.getWriter().print(JSON.toJSONString("暂无数据"));
             }

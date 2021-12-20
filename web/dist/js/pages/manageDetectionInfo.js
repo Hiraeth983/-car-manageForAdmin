@@ -9,7 +9,7 @@ function getStaffNameList() {
         type: 'post',
         dataType: 'json',
         data: {
-            stationId: '1'
+            stationId
         },
         success: function (data) {
             staffList = data;
@@ -158,17 +158,22 @@ $(function () {
         url: 'getRecordList',
         type: 'post',
         dataType: 'json',
-        data: {},
+        data: {
+            stationId: stationId
+        },
         success: function (data) {
-            recordList = data;
+            recordList = data.filter(function (item) {
+                return item.process === '已申请';
+            });
             // console.log(recordList);
             let tb = document.getElementById('tb');
-            if(data === '暂无数据'){
+            if (recordList.length === 0) {
                 tb.innerHTML = '';
-                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
-            }else{
-                let str = generateStr(data);
+            } else {
+                $("#noData").html('');
+                let str = generateStr(recordList);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
             }
@@ -182,17 +187,22 @@ $(function () {
             url: 'getRecordList',
             type: 'post',
             dataType: 'json',
-            data: {},
+            data: {
+                stationId
+            },
             success: function (data) {
-                recordList = data;
+                recordList = data.filter(function (item) {
+                    return item.process === '已申请';
+                });
                 // console.log(recordList);
                 let tb = document.getElementById('tb');
-                if(data === '暂无数据'){
+                if (recordList.length === 0) {
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
-                }else{
-                    let str = generateStr(data);
+                } else {
+                    $("#noData").html('');
+                    let str = generateStr(recordList);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
                 }
@@ -203,30 +213,47 @@ $(function () {
 
     $('#sub').click(function (e) {
 
-        let temp = $("input[name='carId']").val();
-        // console.log(temp);
-        $.ajax({
-            url: 'getRecordByCarId',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                carId: temp
-            },
-            success: function (data) {
-                recordList = data;
-                // console.log(recordList);
-                let tb = document.getElementById('tb');
-                if(data === '暂无数据'){
-                    tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
-                    $(".tips").show();
-                }else{
-                    let str = generateStr(data);
-                    // 将定义好的内容,写入到tbody标签中
-                    tb.innerHTML = str;
-                }
-            }
+        let carId = $("input[name='carId']").val();
+        let tb = document.getElementById('tb');
+        newList = recordList.filter(function (item) {
+            return item.carId === carId;
         });
+
+        if (newList.length === 0) {
+            tb.innerHTML = '';
+            $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $(".tips").show();
+        } else {
+            $("#noData").html('');
+            let str = generateStr(newList);
+            // 将定义好的内容,写入到tbody标签中
+            tb.innerHTML = str;
+        }
+        // console.log(temp);
+        // $.ajax({
+        //     url: 'getRecordByCarId',
+        //     type: 'post',
+        //     dataType: 'json',
+        //     data: {
+        //         carId: temp
+        //     },
+        //     success: function (data) {
+        //         recordList = data.filter(function (item) {
+        //             return item.process === '已申请';
+        //         });
+        //         // console.log(recordList);
+        //         let tb = document.getElementById('tb');
+        //         if () {
+        //             
+        //             $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+        //             $(".tips").show();
+        //         } else {
+        //             let str = generateStr(data);
+        //             // 将定义好的内容,写入到tbody标签中
+        //             tb.innerHTML = str;
+        //         }
+        //     }
+        // });
         e.preventDefault();
     });
 
@@ -273,19 +300,24 @@ $(function () {
                 orderId: orderId,
                 checkTime: checkTime,
                 staffId: staffId,
-                staffName: staffName
+                staffName: staffName,
+                stationId: stationId
             },
             success: function (data) {
                 $(".modal").modal('hide');
                 $('.modal-backdrop').remove();//去掉遮罩层
                 // console.log(data);
+                recordList = data.filter(function (item) {
+                    return item.process === '已申请';
+                });
                 let tb = document.getElementById('tb');
-                if(data === '暂无数据'){
+                if (recordList.length === 0) {
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
-                }else{
-                    let str = generateStr(data);
+                } else {
+                    $("#noData").html('');
+                    let str = generateStr(recordList);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
                 }

@@ -30,17 +30,23 @@ public class insertAdminLog extends HttpServlet {
             adminLog.setUserName(userName);
             adminLog.setPassword(password);
             adminLog.setStationId(stationId);
-            Boolean flag = adi.insertAdminLog(adminLog);
-            if (flag) {
-                ArrayList<AdminLog> adminLogList = adi.getAdminLogList();
-                if (!adminLogList.isEmpty()){
-                    response.getWriter().print(JSONArray.fromObject(adminLogList));
-                }else{
-                    response.getWriter().print(JSON.toJSONString("暂无数据"));
-                }
+            int count = adi.getAdminNumByStationId(stationId);
+            if (count >= 2) {
+                response.getWriter().print(JSON.toJSONString("检测站站长人数已达上限！"));
             } else {
-                response.sendRedirect("error.jsp");
+                Boolean flag = adi.insertAdminLog(adminLog);
+                if (flag) {
+                    ArrayList<AdminLog> adminLogList = adi.getAdminLogList();
+                    if (!adminLogList.isEmpty()) {
+                        response.getWriter().print(JSONArray.fromObject(adminLogList));
+                    } else {
+                        response.getWriter().print(JSON.toJSONString("暂无数据"));
+                    }
+                } else {
+                    response.sendRedirect("error.jsp");
+                }
             }
+
 
         } catch (Exception e) {
             response.sendRedirect("error.jsp");

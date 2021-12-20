@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 李龙
-  Date: 2021/12/3
-  Time: 14:57
+  Date: 2021/12/12
+  Time: 22:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8"
@@ -15,30 +15,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>员工信息管理</title>
+    <title>审批车主投诉</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-    <link rel="stylesheet" href="plugins/bootstrap-select/css/bootstrap-select.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -164,8 +149,8 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item menu-open">
-                        <a href="manageStaff.jsp" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="manageStaff.jsp" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 员工信息管理
@@ -212,8 +197,8 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="examineComplaint.jsp" class="nav-link">
+                    <li class="nav-item menu-open">
+                        <a href="examineComplaint.jsp" class="nav-link active">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
                                 审批车主投诉
@@ -229,113 +214,31 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>审批车主投诉</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
+                            <li class="breadcrumb-item active">审批车主投诉</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div>&nbsp;</div>
-                <h3 class="text-dark mb-4">员工管理</h3>
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-nowrap">
-                                <button class="btn btn-primary btn-sm" role="button" style="margin-left: 18px;"
-                                        data-toggle="modal" data-target="#myModal">添加
+                                <button type="button" class="btn btn-primary btn-sm" id="refresh">
+                                    刷新
                                 </button>
-                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title text-left" id="myModalLabel">添加</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">
-                                                    &times;
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal" role="form"
-                                                      action="insertStaff" method="post">
-
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">员工姓名</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入员工姓名" name="fullName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">密码</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="请输入密码" name="password" value="123456">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">平均评分</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" value="0"
-                                                                   name="avgScore" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">总服务数</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" value="0"
-                                                                   name="orderSum" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">归属站号</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" value="${stationId}"
-                                                                   name="stationId" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 control-label">资格证</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="selectpicker"
-                                                                    id="isAble"
-                                                                    data-style="btn-info"
-                                                                    title="请选择是否具有资格证">
-                                                                <option value="0">
-                                                                    无资格证
-                                                                </option>
-                                                                <option value="1">
-                                                                    持有资格证
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="reset" class="btn btn-default">重置</button>
-                                                        <button type="submit" class="btn btn-primary" id="addSubmit">
-                                                            添加
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal -->
-                                </div>
-
-                                <button class="btn btn-danger btn-sm" role="button" style="margin-left: 10px;"
-                                        id="refresh">刷新
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                    <form class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                        <div class="input-group"><input
-                                                class="bg-light form-control form-control-sm border-0 small" type="text"
-                                                placeholder="员工编号搜索..." name="staffId">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary py-0" type="submit" id="sub"><i
-                                                        class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                         <div class="table-responsive table mt-2" id="dataTable" role="grid"
@@ -343,14 +246,11 @@
                             <table class="table my-0" id="dataTable1">
                                 <thead>
                                 <tr>
+                                    <th style="text-align: center">单号</th>
+                                    <th style="text-align: center">提交时间</th>
                                     <th style="text-align: center">员工编号</th>
-                                    <th style="text-align: center">姓名</th>
-                                    <th style="text-align: center">密码</th>
-                                    <th style="text-align: center">平均评分</th>
-                                    <th style="text-align: center">总服务数</th>
-                                    <th style="text-align: center">归属站号</th>
-                                    <th style="text-align: center">资格证有无</th>
-                                    <th style="text-align: center">操作</th>
+                                    <th style="text-align: center">处理状态</th>
+                                    <th style="text-align: center">详情</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tb">
@@ -390,35 +290,13 @@
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-
-
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
-<script src="plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
 <script type="text/javascript">
     let stationId = "${sessionScope.stationId}";
 </script>
-<script src="dist/js/pages/manageStaff.js"></script>
+<script src="dist/js/pages/examineComplaint.js"></script>
 </body>
 </html>

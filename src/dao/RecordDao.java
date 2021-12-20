@@ -12,7 +12,7 @@ public interface RecordDao {
      * @return 检测数据数组
      * @throws Exception
      */
-    ArrayList<Record> getRecordList() throws Exception;
+    ArrayList<Record> getRecordList(String stationId) throws Exception;
 
     /**
      * 查询某一检测数据

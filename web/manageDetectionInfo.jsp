@@ -348,7 +348,7 @@
                                                                                 <div class="col-sm-10">
                                                                                     <input type="text"
                                                                                            class="form-control"
-                                                                                            id="carId"
+                                                                                           id="carId"
                                                                                            disabled>
                                                                                 </div>
                                                                             </div>
@@ -450,7 +450,8 @@
                                                                         <div id="submit-part" class="content"
                                                                              role="tabpanel"
                                                                              aria-labelledby="submit-part-trigger">
-                                                                            <form class="form-horizontal" role="form" id="assignForm">
+                                                                            <form class="form-horizontal" role="form"
+                                                                                  id="assignForm">
                                                                                 <div class="form-group row">
                                                                                     <label class="col-sm-2 control-label"
                                                                                            for="confirmOrderId">单号</label>
@@ -612,6 +613,8 @@
                                 <tr></tr>
                                 </tfoot>
                             </table>
+                            <div id="noData">
+                            </div>
                         </div>
                         <div class="row">
                         </div>
@@ -662,6 +665,9 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<script type="text/javascript">
+    let stationId = "${sessionScope.stationId}";
+</script>
 <script src="dist/js/pages/manageDetectionInfo.js"></script>
 </body>
 </html>

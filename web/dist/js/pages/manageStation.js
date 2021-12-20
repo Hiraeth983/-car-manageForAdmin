@@ -124,9 +124,10 @@ function clickDelete(stationId) {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
+                $("#noData").html('');
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
@@ -162,9 +163,10 @@ function check(obj) {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
+                $("#noData").html('');
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
@@ -196,9 +198,10 @@ $(function () {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
+                $("#noData").html('');
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
@@ -223,9 +226,10 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
+                    $("#noData").html('');
                     let str = generateStr(data);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
@@ -251,9 +255,10 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
+                    $("#noData").html('');
                     let str = generateStr(data);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;
@@ -290,9 +295,10 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
+                    $("#noData").html('');
                     let str = generateStr(data);
                     // 将定义好的内容,写入到tbody标签中
                     tb.innerHTML = str;

@@ -61,9 +61,19 @@ public interface AdminLogDao {
 
     /**
      * 修改指定用户名的用户数据
+     *
      * @param adminLog
      * @return 修改是否成功
      * @throws Exception
      */
     Boolean updateAdminLogByUserName(AdminLog adminLog) throws Exception;
+
+    /**
+     * 获取指定检测站站长人数
+     *
+     * @param stationId
+     * @return 人数
+     * @throws Exception
+     */
+    int getAdminNumByStationId(String stationId) throws Exception;
 }

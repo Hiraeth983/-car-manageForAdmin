@@ -20,10 +20,11 @@ public class getRecordList extends HttpServlet {
                        HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String stationId = request.getParameter("stationId");
         RecordDaoImpl rdi = new RecordDaoImpl();
         try {
 
-            ArrayList<Record> recordList = rdi.getRecordList();
+            ArrayList<Record> recordList = rdi.getRecordList(stationId);
             if (!recordList.isEmpty()) {
                 response.getWriter().print(JSONArray.fromObject(recordList));
             } else {

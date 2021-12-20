@@ -39,7 +39,7 @@ public class StaffDaoImpl extends DataBaseConnection implements StaffDao {
         if (!staffList.isEmpty()) {
             return staffList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -74,7 +74,7 @@ public class StaffDaoImpl extends DataBaseConnection implements StaffDao {
         if (!staffList.isEmpty()) {
             return staffList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 

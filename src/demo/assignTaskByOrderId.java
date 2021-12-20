@@ -25,6 +25,7 @@ public class assignTaskByOrderId extends HttpServlet {
         String checkTime = request.getParameter("checkTime");
         String staffId = request.getParameter("staffId");
         String staffName = request.getParameter("staffName");
+        String stationId = request.getParameter("stationId");
         RecordDaoImpl rdi = new RecordDaoImpl();
         try {
             Record record = new Record();
@@ -35,7 +36,7 @@ public class assignTaskByOrderId extends HttpServlet {
             record.setProcess("已分配");
             Boolean flag = rdi.assignTaskByOrderId(record);
             if (flag) {
-                ArrayList<Record> list = rdi.getRecordList();
+                ArrayList<Record> list = rdi.getRecordList(stationId);
                 if (!list.isEmpty()){
                     response.getWriter().print(JSONArray.fromObject(list));
                 }else{

@@ -18,11 +18,12 @@ public class RecordDaoImpl extends DataBaseConnection implements RecordDao {
      * @throws Exception
      */
     @Override
-    public ArrayList<Record> getRecordList() throws Exception {
+    public ArrayList<Record> getRecordList(String stationId) throws Exception {
         ArrayList<Record> recordList = new ArrayList<>();
         Connection conn = DataBaseConnection.getConnection();
-        String sql = "SELECT * FROM record";
+        String sql = "SELECT record.* FROM record,station where stationId=? and station.address = record.address";
         PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, stationId);
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
             Record record = new Record();
@@ -61,7 +62,7 @@ public class RecordDaoImpl extends DataBaseConnection implements RecordDao {
         if (!recordList.isEmpty()) {
             return recordList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -176,7 +177,7 @@ public class RecordDaoImpl extends DataBaseConnection implements RecordDao {
         if (!recordList.isEmpty()) {
             return recordList;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 

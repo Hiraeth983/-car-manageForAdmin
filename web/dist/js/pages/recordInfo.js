@@ -120,17 +120,18 @@ $(function () {
         type: 'post',
         dataType: 'json',
         data: {
-            stationId: stationId.isNull ? 1 : stationId
+            stationId
         },
         success: function (data) {
             recordList = data;
             // console.log(recordList);
             let tb = document.getElementById('tb');
-            if(data === '暂无数据'){
+            if (data === '暂无数据') {
                 tb.innerHTML = '';
-                $("#tb").parent().parent().append("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
-            }else{
+            } else {
+                $("#noData").html('');
                 let str = generateStr(data);
                 // 将定义好的内容,写入到tbody标签中
                 tb.innerHTML = str;
@@ -177,29 +178,53 @@ $(function () {
 
 
     $('#history').click(function () {
-        let str = generateStr(recordList);
         let tb = document.getElementById('tb');
-        tb.innerHTML = str;
+        if (recordList.length === 0) {
+            tb.innerHTML = '';
+            // $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $(".tips").show();
+        } else {
+            $("#noData").html('');
+            let str = generateStr(recordList);
+            tb.innerHTML = str;
+        }
+
     });
 
     $('#daily').click(function () {
         let mydate = (new Date()).Format("yyyy-MM-dd");
-        newList = recordList.filter(item => item.checkTime >= mydate);
-        let str = generateStr(newList);
+        newList = recordList.filter(item => item.orderTime >= mydate);
+
         let tb = document.getElementById('tb');
-        tb.innerHTML = str;
+        if (newList.length === 0) {
+            tb.innerHTML = '';
+            $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $(".tips").show();
+        } else {
+            $("#noData").html('');
+            let str = generateStr(newList);
+            tb.innerHTML = str;
+        }
     });
 
     $('#sub').click(function (e) {
         e.preventDefault();
+        let tb = document.getElementById('tb');
         let range = $('#config-demo').val();
         let arr = range.split('~');
-        newList = recordList.filter(item => item.checkTime >= arr[0] && item.checkTime <= arr[1]);
-        console.log(arr);
-        console.log(newList);
-        let str = generateStr(newList);
-        let tb = document.getElementById('tb');
-        tb.innerHTML = str;
+        newList = recordList.filter(item => item.orderTime >= arr[0] && item.orderTime <= arr[1]);
+        // console.log(arr);
+        // console.log(newList);
+        if (newList.length === 0) {
+            tb.innerHTML = '';
+            $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $(".tips").show();
+        } else {
+            $("#noData").html('');
+            let str = generateStr(newList);
+            tb.innerHTML = str;
+        }
     })
 
 });

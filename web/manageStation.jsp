@@ -302,6 +302,8 @@
                                 <tr></tr>
                                 </tfoot>
                             </table>
+                            <div id="noData">
+                            </div>
                         </div>
                         <div class="row">
                         </div>
