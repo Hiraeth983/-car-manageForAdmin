@@ -7,6 +7,7 @@ import utils.DataBaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ApplicationDaoImpl extends DataBaseConnection implements ApplicationDao {
@@ -66,6 +67,19 @@ public class ApplicationDaoImpl extends DataBaseConnection implements Applicatio
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, app.getState());
         pstmt.setString(2, app.getOrderId());
+        boolean flag = pstmt.executeUpdate() > 0;
+        conn.close();
+        pstmt.close();
+        return flag;
+    }
+
+    public Boolean examineApplicationWithState(Application app) throws Exception {
+        Connection conn = DataBaseConnection.getConnection();
+        String sql = "update record set staffId=?,staffName=? where orderId=?;";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, app.getnStaffId());
+        pstmt.setString(2, app.getnStaffName());
+        pstmt.setString(3, app.getOrderId());
         boolean flag = pstmt.executeUpdate() > 0;
         conn.close();
         pstmt.close();

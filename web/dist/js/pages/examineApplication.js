@@ -144,14 +144,18 @@ $(function () {
     });
 
     $('#examineForm').click(function () {
+        let orderId = $("#confirmOrderId").val();
+        let obj = newList.find(item => item.orderId == orderId);
         $.ajax({
             url: 'examineApplication',
             type: 'post',
             dataType: 'json',
             data: {
-                orderId: $("#confirmOrderId").val(),
+                orderId: orderId,
                 state: $("#confirmState").val(),
-                stationId: stationId
+                stationId: stationId,
+                nStaffId:obj.nStaffId,
+                nStaffName:obj.nStaffName
             },
             success: function (data) {
                 $(".modal").modal('hide');

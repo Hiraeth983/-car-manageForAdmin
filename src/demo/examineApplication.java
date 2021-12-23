@@ -26,13 +26,20 @@ public class examineApplication extends HttpServlet {
         String orderId = request.getParameter("orderId");
         String state = request.getParameter("state");
         String stationId = request.getParameter("stationId");
-        stationId = "".equals(stationId) ? "1" : stationId;
+        String nStaffId = request.getParameter("nStaffId");
+        String nStaffName = request.getParameter("nStaffName");
         ApplicationDaoImpl applicationDao = new ApplicationDaoImpl();
         try {
             Application app = new Application();
             app.setOrderId(orderId);
             app.setState(state);
+            app.setnStaffId(nStaffId);
+            app.setnStaffName(nStaffName);
             Boolean flag = applicationDao.examineApplication(app);
+            if(!"已拒绝".equals(state) && flag){
+                flag = applicationDao.examineApplicationWithState(app);
+            }
+
             if (flag) {
                 ArrayList<Application> applicationList = applicationDao.getApplicationListByStationId(stationId);
                 if (!applicationList.isEmpty()){
