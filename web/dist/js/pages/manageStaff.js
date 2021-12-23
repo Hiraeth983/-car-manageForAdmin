@@ -101,7 +101,7 @@ function clickDelete(staffId) {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
                 $("#noData").html('');
@@ -133,7 +133,7 @@ function check(obj) {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
                 $("#noData").html('');
@@ -162,7 +162,7 @@ $(function () {
             let tb = document.getElementById('tb');
             if(data === '暂无数据'){
                 tb.innerHTML = '';
-                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             }else{
                 $("#noData").html('');
@@ -193,7 +193,7 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
                     $("#noData").html('');
@@ -221,7 +221,7 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
                     $("#noData").html('');
@@ -258,7 +258,7 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if(data === '暂无数据'){
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 }else{
                     $("#noData").html('');

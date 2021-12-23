@@ -169,7 +169,7 @@ $(function () {
             let tb = document.getElementById('tb');
             if (recordList.length === 0) {
                 tb.innerHTML = '';
-                $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                 $(".tips").show();
             } else {
                 $("#noData").html('');
@@ -198,7 +198,7 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if (recordList.length === 0) {
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 } else {
                     $("#noData").html('');
@@ -221,7 +221,7 @@ $(function () {
 
         if (newList.length === 0) {
             tb.innerHTML = '';
-            $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+            $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
             $(".tips").show();
         } else {
             $("#noData").html('');
@@ -245,7 +245,7 @@ $(function () {
         //         let tb = document.getElementById('tb');
         //         if () {
         //             
-        //             $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+        //             $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
         //             $(".tips").show();
         //         } else {
         //             let str = generateStr(data);
@@ -313,7 +313,7 @@ $(function () {
                 let tb = document.getElementById('tb');
                 if (recordList.length === 0) {
                     tb.innerHTML = '';
-                    $("#tb").parent().parent().html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
+                    $("#noData").html("<div class=\"tips\" style=\"text-align: center;color: #333333;line-height: 40px;border-bottom: 1px solid #bce8f1;\">暂无相应数据！</div>");
                     $(".tips").show();
                 } else {
                     $("#noData").html('');

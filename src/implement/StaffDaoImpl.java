@@ -117,7 +117,7 @@ public class StaffDaoImpl extends DataBaseConnection implements StaffDao {
     }
 
     /**
-     * 查询某一检测站数据
+     * 查询某一员工数据
      *
      * @param staffId
      * @return

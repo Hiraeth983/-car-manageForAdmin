@@ -249,7 +249,7 @@
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>站点编号</b> <a class="float-right" id="stationId">1,322</a>
+                                        <b>员工编号</b> <a class="float-right" id="stationId">1,322</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>每日最大容纳量</b> <a class="float-right" id="maxNum">543</a>
@@ -259,24 +259,7 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-
-                        <!-- About Me Box -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">关于检测站</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                                <p class="text-muted">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                                </p>
+                                <a href="#" class="btn btn-primary btn-block"><b>基本信息</b></a>
                             </div>
                             <!-- /.card-body -->
                         </div>
