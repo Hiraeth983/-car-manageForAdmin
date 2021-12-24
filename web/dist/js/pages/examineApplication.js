@@ -110,6 +110,7 @@ $(function () {
     examineInit();
 
     $('#myToggle').hide();
+    $("#confirmState").val("已同意");
     //name值和input标签的name值一样
     $("[name='switch']").bootstrapSwitch({
         onText: "同意",      // 设置ON文本
